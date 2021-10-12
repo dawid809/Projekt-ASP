@@ -1,0 +1,21 @@
+﻿@model Projekt_ASP.Models.Book
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form asp-action="AddNewBook" method="post">
+    <label asp-for="Name">Podaj nazwe książki:</label><br />
+    <input asp-for="Name" /><br />
+    <div><span asp-validation-for="Name" class="text-danger"></span></div>
+    <label asp-for="Author">Podaj autora:</label><br />
+    <input asp-for="Author" /><br />
+    <div><span asp-validation-for="Author" class="text-danger"></span></div>
+    <label asp-for="PageCount">Podaj liczbe stron:</label><br />
+    <input asp-for="PageCount" /><br />
+    <div><span asp-validation-for="PageCount" class="text-danger"></span></div>
+    <label asp-for="BookDate">Data wypożyczenia:</label><br />
+    <input asp-for="BookDate" /><br />
+    <button class="mt-2">Save</button>
+</form>

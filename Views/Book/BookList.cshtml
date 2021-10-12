@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ICollection<Projekt_ASP.Models.Book>
+
+<h1>Liczb książek: @Model.Count</h1>
+
+
+<table>
+    <tr>
+        <th>Nazwa: </th>
+        <th>Autor: </th>
+        <th>Liczba stron: </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.Name</th>
+            <th>@item.Author</th>
+            <th>@item.PageCount</th>
+        </tr>
+    }
+</table>

@@ -9,7 +9,7 @@ namespace Projekt_ASP.Controllers
 {
     public class BookController : Controller
     {
-        static List<Book> booksList = new List<Book>();
+         List<Book> booksList = new List<Book>();
    
             
         public IActionResult Index()
@@ -38,6 +38,12 @@ namespace Projekt_ASP.Controllers
             {
                 return View("Add");
             }
+        }
+
+        public IActionResult BookList()
+        {
+            booksList.Add(new Book { Name = "K1", Author = "Autor1" , BookDate = new DateTime(2008, 10, 31, 17, 4, 32), PageCount = 123} );
+            return View("BookList", booksList);
         }
     }
 }

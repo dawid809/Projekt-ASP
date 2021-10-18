@@ -1,0 +1,17 @@
+﻿@model Projekt_ASP.Models.User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-action="Login">
+    <div>
+        <label asp-for="Login">Login:</label><br />
+        <input asp-for="Login" /><br />
+        <label asp-for="Password">Hasło:</label><br />
+        <input asp-for="Password" /><br />
+        <button class="btn-primary">Login</button>
+    </div>
+    <div>Jeśli natomiast nie masz konta klinknij poniżej!</div>
+    <a class="btn btn-primary" type="button" asp-controller="User" asp-action="Register">Register</a>
+</form>

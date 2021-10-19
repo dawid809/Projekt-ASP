@@ -5,9 +5,9 @@
 }
 
 @model ICollection<Projekt_ASP.Models.Book>
-
-<h1>Liczb książek: @Model.Count</h1>
-
+@*@model Projekt_ASP.Models.Book*@
+<a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Add">Add new book</a>
+<h1>Lista dostępnych książek(@Model.Count)</h1>
 
 <table>
     <tr>
@@ -18,9 +18,13 @@
     @foreach (var item in Model)
     {
         <tr>
-            <th>@item.Name</th>
-            <th>@item.Author</th>
-            <th>@item.PageCount</th>
+            <td>@item.Name</td>
+            <td>@item.Author</td>
+            <td>@item.PageCount</td>
+            <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a></td>
+            <td><a class="btn btn-danger" type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@item.Id">Usuń</a></td>
+            <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Description" asp-route-id="@item.Id">Szczegóły</a></td>
         </tr>
     }
+
 </table>

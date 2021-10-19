@@ -4,18 +4,23 @@
 *@
 @{
 }
+<div>
+    <form asp-action="AddNewBook" method="post">
+        <label asp-for="Name">Podaj nazwe książki:</label><br />
+        <input asp-for="Name" /><br />
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <label asp-for="Author">Podaj autora:</label><br />
+        <input asp-for="Author" /><br />
+        <div><span asp-validation-for="Author" class="text-danger"></span></div>
+        <label asp-for="PageCount">Podaj liczbe stron:</label><br />
+        <input asp-for="PageCount" /><br />
+        <div><span asp-validation-for="PageCount" class="text-danger"></span></div>
+        <label asp-for="BookDate">Data wypożyczenia:</label><br />
+        <input asp-for="BookDate" /><br />
+        <button class="mt-2">Save</button>
+    </form>
+</div>
 
-<form asp-action="AddNewBook" method="post">
-    <label asp-for="Name">Podaj nazwe książki:</label><br />
-    <input asp-for="Name" /><br />
-    <div><span asp-validation-for="Name" class="text-danger"></span></div>
-    <label asp-for="Author">Podaj autora:</label><br />
-    <input asp-for="Author" /><br />
-    <div><span asp-validation-for="Author" class="text-danger"></span></div>
-    <label asp-for="PageCount">Podaj liczbe stron:</label><br />
-    <input asp-for="PageCount" /><br />
-    <div><span asp-validation-for="PageCount" class="text-danger"></span></div>
-    <label asp-for="BookDate">Data wypożyczenia:</label><br />
-    <input asp-for="BookDate" /><br />
-    <button class="mt-2">Save</button>
-</form>
+<div>
+    <a asp-action="BookList">Wróc do listy</a>
+</div>

@@ -32,6 +32,6 @@ namespace Projekt_ASP.Models
         [DisplayName ("Liczba stron")]
         public int PageCount { get; set; }
         [DisplayName ("Data wydania")]
-        public DateTime BookDate { get; set; }
+        public short ReleaseDate { get; set; }
     }
 }

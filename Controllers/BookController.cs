@@ -15,21 +15,16 @@ namespace Projekt_ASP.Controllers
           {
               new Book()
               {
-                  Id = 1, Author = "Bolesław Prus", BookDate = new DateTime(2015, 02, 04) , Name = "Lalka", PageCount = 864
+                  Id = 1, Author = "Bolesław Prus", ReleaseDate = 2015 , Name = "Lalka", PageCount = 864
               },
               new Book()
               {
-                  Id = 2, Author = "Jan Brzechwa", BookDate = new DateTime(2013, 09, 05) , Name = "Akademia Pana Kleksa", PageCount = 136
+                  Id = 2, Author = "Jan Brzechwa", ReleaseDate = 2013 , Name = "Akademia Pana Kleksa", PageCount = 136
               },
           };
    
             
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Book()
         {
             return View();
         }
@@ -55,18 +50,32 @@ namespace Projekt_ASP.Controllers
 
         public IActionResult Edit(int id)
         {
-            var tmp = booksList.FirstOrDefault(x => x.Id == id);
-            return View(tmp);
+            //var tmp = booksList.FirstOrDefault(x => x.Id == id);
+            var newBook = booksList.Where(x => x.Id == id).FirstOrDefault();
+            return View(newBook);
         }
 
-        public IActionResult Save()
+        [HttpPost]
+        public IActionResult Edit(Book newBook)
         {
+            var book = booksList.Where(x => x.Id == newBook.Id).FirstOrDefault();
+            booksList.Remove(book);
+            booksList.Add(newBook);
             return View("BookList", booksList);
         }
 
-        public IActionResult Description()
+        //public IActionResult Save(Book newBook)
+        //{
+        //    var book = booksList.Where(x => x.Id == newBook.Id).FirstOrDefault();
+        //    booksList.Remove(book);
+        //    booksList.Add(newBook);
+        //    return View("BookList", booksList);
+        //}
+
+        public IActionResult Description(int id)
         {
-            return View();
+            var tmp = booksList.FirstOrDefault(x => x.Id == id);
+            return View(tmp);
         }
 
         public IActionResult Delete(int id)

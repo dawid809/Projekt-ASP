@@ -4,17 +4,17 @@
 @{
 }
 
-@model ICollection<Projekt_ASP.Models.Book>
+@model IEnumerable<Projekt_ASP.Models.Book>
 @*@model Projekt_ASP.Models.Book*@
 <a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Add">Add new book</a>
-<h1>Lista dostępnych książek(@Model.Count)</h1>
+<h1>Lista dostępnych książek </h1>
 
 <table>
     <tr>
-        <th>Nazwa: </th>
-        <th>Autor: </th>
-        <th>Liczba stron: </th>
-        <th>Data wydania: </th>
+        <th>Nazwa</th>
+        <th>Autor</th>
+        <th>Liczba stron</th>
+        <th>Data wydania</th>
     </tr>
     @foreach (var item in Model)
     {

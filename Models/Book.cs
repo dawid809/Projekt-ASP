@@ -19,7 +19,7 @@ namespace Projekt_ASP.Models
     {
 
         [HiddenInput]
-        public int Id { get; set; }
+        public int BookId { get; set; }
         [Required(ErrorMessage = "Podaj nazwe książki!")]
         [DisplayName ("Nazwa książki")]
         public string Name { get; set; }

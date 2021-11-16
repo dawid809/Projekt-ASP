@@ -10,18 +10,24 @@ namespace Projekt_ASP.Controllers
     public class BookController : Controller
     {
 
-        private IBookRepository repository;
-        public BookController(IBookRepository repository)
+        //private IBookRepository repository;
+        //public BookController(IBookRepository repository)
+        //{
+        //    this.repository = repository;
+        //}
+
+        private ICRUDBookRepository repository;
+        public BookController(ICRUDBookRepository repository)
         {
             this.repository = repository;
         }
+
 
         //public ViewResult Indexx()
         //{
         //    return View(repository.Books);
         //}
 
-        private static int Counter;
 
         private static List<Book> booksList = new List<Book>() 
           {
@@ -38,27 +44,26 @@ namespace Projekt_ASP.Controllers
             
         public IActionResult Index()
         {
-            return View(repository.Books);
+            return View(repository.FindAll());
         }
 
-        //public IActionResult Add()
-        //{
-        //    return View();
-        //}
+        public IActionResult Add()
+        {
+            return View();
+        }
 
-        //public IActionResult AddNewBook(Book book)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        booksList.Add(book);
-        //        Counter++;
-        //        return View("BookList", booksList);
-        //    }
-        //    else
-        //    {
-        //        return View("Add");
-        //    }
-        //}
+        public IActionResult AddNewBook(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.Add(book);
+                return View("BookList");
+            }
+            else
+            {
+                return View("Add");
+            }
+        }
 
         //public IActionResult Edit(int id)
         //{
@@ -90,16 +95,16 @@ namespace Projekt_ASP.Controllers
         //    return View(tmp);
         //}
 
-        //public IActionResult Delete(int id)
-        //{
-        //    booksList.Remove(booksList.FirstOrDefault(x => x.Id == id));
-
-        //    return View("BookList", booksList);
-        //}
+        public IActionResult Delete(int id)
+        {
+            repository.Delete(id);
+            //return View("BookList", booksList);
+            return Index();
+        }
 
         public IActionResult BookList()
         {
-            return View(repository.Books);
+            return View(repository.FindAll());
         }
     }
 }

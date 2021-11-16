@@ -23,9 +23,9 @@
     <td>@item.Author</td>
     <td>@item.PageCount</td>
     <td>@item.ReleaseDate</td>
-    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a></td>
-    <td><a class="btn btn-danger" type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@item.Id">Usuń</a></td>
-    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Description" asp-route-id="@item.Id">Szczegóły</a></td>
+    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@item.BookId">Edytuj</a></td>
+    <td><a class="btn btn-danger" type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@item.BookId">Usuń</a></td>
+    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Description" asp-route-id="@item.BookId">Szczegóły</a></td>
 </tr>
     }
 

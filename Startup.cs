@@ -26,7 +26,7 @@ namespace Projekt_ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration["Data:BookShop:ConnectionString"]));
+            options.UseSqlServer(Configuration["Data:BookShop:ConnectionStringHome"]));
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
                 /*AddDbContext<ApplicationDbContext>(options)*/
             services.AddControllersWithViews();

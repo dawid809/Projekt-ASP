@@ -10,38 +10,13 @@ namespace Projekt_ASP.Controllers
     public class BookController : Controller
     {
 
-        //private IBookRepository repository;
-        //public BookController(IBookRepository repository)
-        //{
-        //    this.repository = repository;
-        //}
-
         private ICRUDBookRepository repository;
+
         public BookController(ICRUDBookRepository repository)
         {
             this.repository = repository;
         }
-
-
-        //public ViewResult Indexx()
-        //{
-        //    return View(repository.Books);
-        //}
-
-
-        private static List<Book> booksList = new List<Book>() 
-          {
-              //new Book()
-              //{
-              //    Id = 1, Author = "Bolesław Prus", ReleaseDate = 2015 , Name = "Lalka", PageCount = 864
-              //},
-              //new Book()
-              //{
-              //    Id = 2, Author = "Jan Brzechwa", ReleaseDate = 2013 , Name = "Akademia Pana Kleksa", PageCount = 136
-              //},
-          };
    
-            
         public IActionResult Index()
         {
             return View(repository.FindAll());
@@ -57,7 +32,7 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 repository.Add(book);
-                return View("BookList");
+                return RedirectToAction("BookList");
             }
             else
             {
@@ -65,41 +40,32 @@ namespace Projekt_ASP.Controllers
             }
         }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    //var tmp = booksList.FirstOrDefault(x => x.Id == id);
-        //    var newBook = booksList.Where(x => x.Id == id).FirstOrDefault();
-        //    return View(newBook);
-        //}
+        public IActionResult Edit(int id)
+        {
+            var newBook = repository.Find(id);
+            repository.Delete(newBook.BookId);
+            return View(newBook);
+            //return RedirectToAction("newBook");
+        }
 
-        //[HttpPost]
-        //public IActionResult Edit(Book newBook)
-        //{
-        //    var book = booksList.Where(x => x.Id == newBook.Id).FirstOrDefault();
-        //    booksList.Remove(book);
-        //    booksList.Add(newBook);
-        //    return View("BookList", booksList);
-        //}
+        [HttpPost]
+        public IActionResult Edit(Book newBook)
+        {
+            repository.Update(newBook);
+            return RedirectToAction("BookList");
+        }
 
-        ////public IActionResult Save(Book newBook)
-        ////{
-        ////    var book = booksList.Where(x => x.Id == newBook.Id).FirstOrDefault();
-        ////    booksList.Remove(book);
-        ////    booksList.Add(newBook);
-        ////    return View("BookList", booksList);
-        ////}
 
-        //public IActionResult Description(int id)
-        //{
-        //    var tmp = booksList.FirstOrDefault(x => x.Id == id);
-        //    return View(tmp);
-        //}
+        public IActionResult Description(int id)
+        {
+            var tmp = repository.Find(id);
+            return View(tmp);
+        }
 
         public IActionResult Delete(int id)
         {
             repository.Delete(id);
-            //return View("BookList", booksList);
-            return Index();
+            return RedirectToAction("BookList");
         }
 
         public IActionResult BookList()

@@ -19,6 +19,7 @@ namespace Projekt_ASP.Models
     {
 
         [HiddenInput]
+        [DisplayName("Id książki")]
         public int BookId { get; set; }
         [Required(ErrorMessage = "Podaj nazwe książki!")]
         [DisplayName ("Nazwa książki")]
@@ -30,7 +31,8 @@ namespace Projekt_ASP.Models
         //Book.Publisher {get; set;}
         [Required(ErrorMessage = "Podaj liczbe stron!")]
         [DisplayName ("Liczba stron")]
-        public int PageCount { get; set; }
+        public short PageCount { get; set; }
+        [Required(ErrorMessage = "Podaj date wydania książki!")]
         [DisplayName ("Data wydania")]
         public short ReleaseDate { get; set; }
     }

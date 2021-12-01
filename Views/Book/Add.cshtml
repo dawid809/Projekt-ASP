@@ -1,26 +1,39 @@
 ﻿@model Projekt_ASP.Models.Book
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+
 @{
+    ViewData["Title"] = "Add";
 }
-<div>
-    <form asp-action="AddNewBook" method="post">
-        <label asp-for="Name">Podaj nazwe książki:</label><br />
-        <input asp-for="Name" /><br />
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <label asp-for="Author">Podaj autora:</label><br />
-        <input asp-for="Author" /><br />
-        <div><span asp-validation-for="Author" class="text-danger"></span></div>
-        <label asp-for="PageCount">Podaj liczbe stron:</label><br />
-        <input asp-for="PageCount" /><br />
-        <div><span asp-validation-for="PageCount" class="text-danger"></span></div>
-        <label asp-for="ReleaseDate">Data wypożyczenia:</label><br />
-        <input asp-for="ReleaseDate" /><br />
-        <button class="mt-2">Zapisz</button>
-    </form>
-</div>
 
 <div>
-    <a asp-action="BookList">Wróc do listy</a>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddNewBook" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Podaj nazwe książki:</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Author" class="control-label">Podaj autora:</label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PageCount" class="control-label">Podaj liczbe stron:</label>
+                    <input asp-for="PageCount" class="form-control" />
+                    <span asp-validation-for="PageCount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReleaseDate" class="control-label">Podaj date wydania książki:</label>
+                    <input asp-for="ReleaseDate" class="form-control" />
+                    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                </div>
+                <div class="d-flex align-items-center mt-2">
+                    <button class="btn btn-primary">Dodaj</button>
+                    <a class="ml-2" asp-action="BookList">Wróc do listy</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

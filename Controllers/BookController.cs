@@ -22,17 +22,19 @@ namespace Projekt_ASP.Controllers
             return View(repository.FindAll());
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        [HttpPost]
         public IActionResult AddNewBook(Book book)
         {
             if (ModelState.IsValid)
             {
                 repository.Add(book);
-                return RedirectToAction("BookList");
+                return View("BookList", repository.FindAll());
             }
             else
             {
@@ -40,32 +42,39 @@ namespace Projekt_ASP.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            var newBook = repository.Find(id);
-            repository.Delete(newBook.BookId);
-            return View(newBook);
-            //return RedirectToAction("newBook");
+            //var newBook = repository.Find(id);
+            return View(model: repository.Find(id));
         }
 
         [HttpPost]
         public IActionResult Edit(Book newBook)
         {
-            repository.Update(newBook);
-            return RedirectToAction("BookList");
+            if (ModelState.IsValid)
+            {
+                repository.Update(newBook);
+                return View("BookList", repository.FindAll());
+            }
+            else
+            {
+                //return View("Edit", newBook);
+                return View("Edit");
+            }
         }
 
 
         public IActionResult Description(int id)
         {
-            var tmp = repository.Find(id);
-            return View(tmp);
+            var book = repository.Find(id);
+            return View(book);
         }
 
         public IActionResult Delete(int id)
         {
             repository.Delete(id);
-            return RedirectToAction("BookList");
+            return View("BookList", repository.FindAll());
         }
 
         public IActionResult BookList()

@@ -29,12 +29,4 @@ namespace Projekt_ASP.Models
 
         public IQueryable<Book> Books => context.Books;
     }
-
-    //public class BooksShopContext : DbContext
-    //{
-    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    {
-    //        optionsBuilder.UseSqlServer();
-    //    }
-    //}
 }

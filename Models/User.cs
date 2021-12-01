@@ -9,8 +9,10 @@ namespace Projekt_ASP.Models
     public class User
     {
         public int UserId { get; set; }
+        [MinLength(length: 4, ErrorMessage = "Login musi mieć co najmiej 4 znaki")]
         public string Login { get; set; }
         [DataType(DataType.Password)]
+        [MinLength(length: 6, ErrorMessage = "Hasło musi mieć co najmiej 6 znaków")]
         public string Password { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

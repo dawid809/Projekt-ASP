@@ -1,32 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Projekt_ASP.Models.Book>
 
-@model IEnumerable<Projekt_ASP.Models.Book>
-@*@model Projekt_ASP.Models.Book*@
-<a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Add">Add new book</a>
-<h1>Lista dostępnych książek </h1>
+<div>
+    <div class="d-flex align-content-center">
+        <a class="btn btn-outline-success mb-2 display-1" type="button" asp-controller="Book" asp-action="Add">Add new book</a>
+        <h2 class="ml-xl-3">Lista książek</h2>
+    </div>
+    <table class="table">
+        <thead class="thead-light table-borderless">
+            <tr>
+                <th width="20%">Nazwa</th>
+                <th width="20%">Autor</th>
+                <th width="15%">Liczba stron</th>
+                <th width="15%">Data wydania</th>
+                <th width="30%" class="text-center">Opcje</th>
+            </tr>
+        <thead />
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Author</td>
+                    <td>@item.PageCount</td>
+                    <td>@item.ReleaseDate</td>
+                    <td class="text-center">
+                        <a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@item.BookId">Edytuj</a>
+                        <a class="btn btn-danger" type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@item.BookId">Usuń</a>
+                        <a class="btn btn-success" type="button" asp-controller="Book" asp-action="Description" asp-route-id="@item.BookId">Szczegóły</a>
+                    </td>
+                </tr>
+            </tbody>
+        }
 
-<table>
-    <tr>
-        <th>Nazwa</th>
-        <th>Autor</th>
-        <th>Liczba stron</th>
-        <th>Data wydania</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>@item.Name</td>
-    <td>@item.Author</td>
-    <td>@item.PageCount</td>
-    <td>@item.ReleaseDate</td>
-    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Edit" asp-route-id="@item.BookId">Edytuj</a></td>
-    <td><a class="btn btn-danger" type="button" asp-controller="Book" asp-action="Delete" asp-route-id="@item.BookId">Usuń</a></td>
-    <td><a class="btn btn-primary" type="button" asp-controller="Book" asp-action="Description" asp-route-id="@item.BookId">Szczegóły</a></td>
-</tr>
-    }
-
-</table>
+    </table>
+</div>

@@ -1,17 +1,21 @@
 ﻿@model Projekt_ASP.Models.User
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<form asp-action="Login">
-    <div>
-        <label asp-for="Login">Login:</label><br />
-        <input asp-for="Login" /><br />
-        <label asp-for="Password">Hasło:</label><br />
-        <input asp-for="Password" /><br />
-        <button class="btn-primary">Login</button>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <form asp-action="Login" class="border border-info rounded pl-xl-4 pr-xl-4 pt-2 pb-2">
+            <div>
+                <h2 class="text-center">Login</h2><hr />    
+            </div>
+            <div class="form-group d-flex flex-column">
+                <label asp-for="Login">Login</label>
+                <input asp-for="Login" />
+            </div>
+            <div class="form-group d-flex flex-column">
+                <label asp-for="Password">Hasło</label>
+                <input asp-for="Password" />
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <button class="btn btn-primary">Login</button>
+                <a class="btn btn-outline-success" type="button" asp-controller="User" asp-action="Register">Register</a>
+            </div>
+        </form>
     </div>
-    <div>Jeśli natomiast nie masz konta klinknij poniżej!</div>
-    <a class="btn btn-primary" type="button" asp-controller="User" asp-action="Register">Register</a>
-</form>

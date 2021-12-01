@@ -32,9 +32,9 @@ namespace Projekt_ASP.Models
 
         public Book Delete(int id)
         {
-            var book = _context.Books.Remove(Find(id)).Entity;
+            var entity = _context.Books.Remove(Find(id)).Entity;
             _context.SaveChanges();
-            return book;
+            return entity;
         }
 
         public Book Find(int id)

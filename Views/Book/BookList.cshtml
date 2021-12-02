@@ -8,11 +8,12 @@
     <table class="table">
         <thead class="thead-light table-borderless">
             <tr>
-                <th width="20%">Nazwa</th>
-                <th width="20%">Autor</th>
-                <th width="15%">Liczba stron</th>
-                <th width="15%">Data wydania</th>
-                <th width="30%" class="text-center">Opcje</th>
+                <th width="15%">Nazwa</th>
+                <th width="15%">Autor</th>
+                <th width="15%">Kategoria książki</th>
+                <th width="12%">Liczba stron</th>
+                <th width="12%">Data wydania</th>
+                <th width="31%" class="text-center">Opcje</th>
             </tr>
         <thead />
         @foreach (var item in Model)
@@ -21,6 +22,7 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Author</td>
+                    <td>@item.Categories</td>
                     <td>@item.PageCount</td>
                     <td>@item.ReleaseDate</td>
                     <td class="text-center">

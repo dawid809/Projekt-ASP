@@ -16,6 +16,7 @@ namespace Projekt_ASP.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 
     public class EFBookRepository: IBookRepository

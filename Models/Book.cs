@@ -29,6 +29,8 @@ namespace Projekt_ASP.Models
         public string Author { get; set; }
         //public string Publisher { get; set; }
         //Book.Publisher {get; set;}
+        [Required(ErrorMessage = "Podaj kategorie książki!")]
+        public Category.BookCategory Categories { get; set; } 
         [Required(ErrorMessage = "Podaj liczbe stron!")]
         [DisplayName ("Liczba stron")]
         public short PageCount { get; set; }

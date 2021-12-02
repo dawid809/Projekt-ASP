@@ -10,13 +10,14 @@ namespace Projekt_ASP.Models
     {
         public enum BookCategory
         {
-            Dramat,
-            Comedy,
-            Adventure
+            Dramat = 1,
+            Comedy= 2,
+            Adventure = 3
         }
 
         public int CategoryId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Podaj kategorie książki!")]
+        [EnumDataType(typeof(BookCategory))]
         public BookCategory bookCategory { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Projekt_ASP.Migrations
 {
-    public partial class m2 : Migration
+    public partial class Migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

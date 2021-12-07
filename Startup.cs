@@ -28,11 +28,10 @@ namespace Projekt_ASP
         {
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration["Data:BookShop:ConnectionStringHome"]));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
-                /*AddDbContext<ApplicationDbContext>(options)*/
             services.AddControllersWithViews();
             services.AddSession();
         }

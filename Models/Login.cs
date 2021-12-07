@@ -9,18 +9,14 @@ namespace Projekt_ASP.Models
     public class Login
     {
         [Required]
-        //[MinLength(length: 4, ErrorMessage = "Login musi mieć co najmiej 4 znaki")]
+        [Display(Name = "Login")]
         public string Name { get; set; }
+
         [Required]
         [UIHint("password")]
-        //[DataType(DataType.Password)]
-        //[MinLength(length: 4, ErrorMessage = "Hasło musi mieć co najmiej 4 znaki")]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
+
         public string ReturnUrl { get; set; } = "/";
-        //[DataType(DataType.EmailAddress)]
-        //public string Email { get; set; }
-        //public string Name { get; set; }
-        //public string Surname { get; set; }
-        //public int Age { get; set; }
     }
 }

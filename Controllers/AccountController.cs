@@ -11,19 +11,54 @@ namespace Projekt_ASP.Controllers
 {
     public class AccountController : Controller
     {
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<AppUser> _userManager;
+        private SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(Register register)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser
+                {
+                    UserName = register.Email,
+                    Email = register.Email,
+                    FirstName = register.FirstName,
+                    LastName = register.LastName
+                };
+
+                var result = await _userManager.CreateAsync(user, register.Password);
+
+                if(result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                ModelState.AddModelError("", "Nieprawidłowa próba zalogowania");
+            }
+            return View(register);
+        }
+       
 
         [AllowAnonymous]
         [HttpGet]
@@ -43,7 +78,7 @@ namespace Projekt_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(login.Name);
+                var user = await _userManager.FindByNameAsync(login.Name);
 
                 if (user != null)
                 {
@@ -64,10 +99,5 @@ namespace Projekt_ASP.Controllers
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
-
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
     }
 }

@@ -10,20 +10,28 @@ namespace Projekt_ASP.Models
 {
     public static class IdentitySeedData
     {
-        private const string adminUser = "admin";
-        private const string adminPassword = "4y0h9WnLw/TjWXpwK9EZ4D7WCZaB9s/2U/sPcnup1do=";
+        private const string adminName = "admin";
+        private const string adminSurname = "admin";
+        private const string adminPassword = "Admin123*";
+        private const string adminEmail = "admin@gmail.com";
 
         public static async void EnsurePopulated(IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                var userManager = (UserManager<IdentityUser>)scope.
-                    ServiceProvider.GetService(typeof(UserManager<IdentityUser>));
-                IdentityUser user = await userManager.FindByIdAsync(adminUser);
+                var userManager = (UserManager<AppUser>)scope.
+                    ServiceProvider.GetService(typeof(UserManager<AppUser>));
+                AppUser user = await userManager.FindByIdAsync(adminEmail);
                 {
                     if (user == null)
                     {
-                        user = new IdentityUser(adminUser);
+                        user = new AppUser
+                            {
+                            UserName = adminName,
+                            FirstName = adminName,
+                            LastName = adminSurname,
+                            Email = adminEmail,
+                            };
                         await userManager.CreateAsync(user, adminPassword);
                     }
                 }

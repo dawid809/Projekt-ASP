@@ -21,11 +21,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="BookList">Book List</a>
                         </li>
-                        <li class="nav-item ml-5 position-relative">
-                            <div class="position-absolute">
-                                <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                            </div>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item ml-5 position-relative">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout(@User.Identity.Name)</a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item ml-5 position-relative">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

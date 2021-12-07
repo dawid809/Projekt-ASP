@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Projekt_ASP.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Projekt_ASP.Controllers
         {
             return View(repository.FindAll());
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
@@ -42,6 +43,7 @@ namespace Projekt_ASP.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -70,7 +72,7 @@ namespace Projekt_ASP.Controllers
             var book = repository.Find(id);
             return View(book);
         }
-
+        [Authorize]
         public IActionResult Delete(int id)
         {
             repository.Delete(id);

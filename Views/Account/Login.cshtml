@@ -1,4 +1,4 @@
-﻿@model Projekt_ASP.Models.User
+﻿@model Projekt_ASP.Models.Login
 
     <div class="d-flex align-items-center justify-content-center">
         <form asp-action="Login" class="border border-info rounded pl-xl-4 pr-xl-4 pt-2 pb-2">
@@ -6,8 +6,8 @@
                 <h2 class="text-center">Login</h2><hr />    
             </div>
             <div class="form-group d-flex flex-column">
-                <label asp-for="Login">Login</label>
-                <input asp-for="Login" />
+                <label asp-for="Name">Login</label>
+                <input asp-for="Name" />
             </div>
             <div class="form-group d-flex flex-column">
                 <label asp-for="Password">Hasło</label>
@@ -15,7 +15,7 @@
             </div>
             <div class="form-group d-flex justify-content-between">
                 <button class="btn btn-primary">Login</button>
-                <a class="btn btn-outline-success" type="button" asp-controller="User" asp-action="Register">Register</a>
+                @*<a class="btn btn-outline-success" type="button" asp-controller="AccountController" asp-action="Register">Register</a>*@
             </div>
         </form>
     </div>

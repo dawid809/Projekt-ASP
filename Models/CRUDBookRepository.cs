@@ -16,9 +16,9 @@ namespace Projekt_ASP.Models
     }
     public class CRUDBookRepository : ICRUDBookRepository
     {
-        private ApplicationDbContext _context;
+        private AppDbContext _context;
 
-        public CRUDBookRepository (ApplicationDbContext context)
+        public CRUDBookRepository (AppDbContext context)
         {
             _context = context;
         }

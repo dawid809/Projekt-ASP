@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Projekt_ASP.Models
@@ -11,9 +13,10 @@ namespace Projekt_ASP.Models
         IQueryable<Book> Books { get; }
     }
 
-    public class ApplicationDbContext : DbContext
+    public class AppDbContext: IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -21,9 +24,9 @@ namespace Projekt_ASP.Models
 
     public class EFBookRepository: IBookRepository
     {
-        private ApplicationDbContext context;
+        private AppDbContext context;
 
-        public EFBookRepository(ApplicationDbContext context)
+        public EFBookRepository(AppDbContext context)
         {
             this.context = context;
         }

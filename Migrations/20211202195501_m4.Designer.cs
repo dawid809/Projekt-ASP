@@ -9,7 +9,7 @@ using Projekt_ASP.Models;
 
 namespace Projekt_ASP.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20211202195501_m4")]
     partial class m4
     {

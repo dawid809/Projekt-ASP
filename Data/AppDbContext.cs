@@ -24,7 +24,7 @@ namespace Projekt_ASP.Models
 
     public class EFBookRepository: IBookRepository
     {
-        private AppDbContext context;
+        private readonly AppDbContext context;
 
         public EFBookRepository(AppDbContext context)
         {

@@ -9,7 +9,7 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -257,7 +257,7 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("bookCategory")
+                    b.Property<int>("BookCategory")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");

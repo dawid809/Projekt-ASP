@@ -9,8 +9,12 @@ namespace Projekt_ASP.Models
     public class Author
     {
         public int AuthorId { get; set; }
+
         [Required]
+        [Display(Name = "Imie")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Nazwisko")]
         [Required]
         public string Surname { get; set; }
     }

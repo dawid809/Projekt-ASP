@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211207212829_Migration1")]
-    partial class Migration1
+    [Migration("20211210154117_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,7 +259,7 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("bookCategory")
+                    b.Property<int>("BookCategory")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Projekt_ASP.Enums;
 
 namespace Projekt_ASP
 {
@@ -27,13 +28,19 @@ namespace Projekt_ASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration["Data:BookShop:ConnectionStringHome"]));
+            options.UseSqlServer(Configuration["Data:BookShop:IdentityConnectionString"]));
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
             services.AddControllersWithViews();
             services.AddSession();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminAccess", policy => policy.RequireRole(Roles.Admin.ToString()));
+                options.AddPolicy("SellerAccess", policy => policy.RequireRole(Roles.Manager.ToString()));
+                options.AddPolicy("UsersAccess", policy => policy.RequireRole(Roles.User.ToString()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +71,8 @@ namespace Projekt_ASP
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            IdentitySeedData.EnsurePopulated(app);
+
+            IdentitySeedData.CreateUserRoles(app);
         }
     }
 }

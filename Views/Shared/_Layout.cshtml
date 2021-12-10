@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Projekt ASP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    </environment>
 </head>
 <body class="bg-white">
     <header>
@@ -21,17 +23,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="BookList">Book List</a>
                         </li>
+                        <li class="nav-item">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Strona Admina</a>
+                                }
+                            }
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item ml-5 position-relative">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout(@User.Identity.Name)</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout(@User.Identity.Name)</a>
                             </li>
 
                         }
                         else
                         {
                             <li class="nav-item ml-5 position-relative">
-                                    <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
                     </ul>
@@ -39,6 +50,9 @@
             </div>
         </nav>
     </header>
+    <div id="background-img" >
+
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

@@ -11,7 +11,7 @@ namespace Projekt_ASP.Controllers
     public class BookController : Controller
     {
 
-        private ICRUDBookRepository repository;
+        private readonly ICRUDBookRepository repository;
 
         public BookController(ICRUDBookRepository repository)
         {

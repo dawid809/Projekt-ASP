@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projekt_ASP.Models;
 
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211210201314_M1")]
+    partial class M1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,7 +234,7 @@ namespace Projekt_ASP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Lastname")
+                    b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -248,8 +250,9 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -265,8 +268,6 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("BookId");
-
-                    b.HasIndex("AuthorId");
 
                     b.HasIndex("CategoryId");
 
@@ -341,26 +342,13 @@ namespace Projekt_ASP.Migrations
 
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
-                    b.HasOne("Projekt_ASP.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Projekt_ASP.Models.Category", "Category")
+                    b.HasOne("Projekt_ASP.Models.Category", "category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Projekt_ASP.Models.Author", b =>
-                {
-                    b.Navigation("Books");
+                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("Projekt_ASP.Models.Category", b =>

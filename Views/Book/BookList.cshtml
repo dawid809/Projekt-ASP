@@ -21,8 +21,10 @@
             <tbody>
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.Author</td>
-                    <td>@item.Categories</td>
+                    <td>@item.AuthorId</td>
+                    <td>@item.CategoryId</td>
+                    @*<td>@item.category.CategoryId</td>*@
+                    @*.BookCategory.ToString()*@
                     <td>@item.PageCount</td>
                     <td>@item.ReleaseDate</td>
                     <td class="text-center">

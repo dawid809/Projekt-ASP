@@ -33,5 +33,14 @@ namespace Projekt_ASP.Models
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+
+        [Display(Name = "Imie i nazwisko")]
+        public string FullName
+        {
+            get
+            {
+                return LastName + ", " + FirstName;
+            }
+        }
     }
 }

@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211210154117_M1")]
-    partial class M1
+    [Migration("20211214111958_M4")]
+    partial class M4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,6 +223,26 @@ namespace Projekt_ASP.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Projekt_ASP.Models.Author", b =>
+                {
+                    b.Property<int>("AuthorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuthorId");
+
+                    b.ToTable("Authors");
+                });
+
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
                     b.Property<int>("BookId")
@@ -230,11 +250,10 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Categories")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -248,6 +267,10 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("BookId");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
                 });
@@ -316,6 +339,35 @@ namespace Projekt_ASP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
+                {
+                    b.HasOne("Projekt_ASP.Models.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt_ASP.Models.Category", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Projekt_ASP.Models.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Projekt_ASP.Models.Category", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

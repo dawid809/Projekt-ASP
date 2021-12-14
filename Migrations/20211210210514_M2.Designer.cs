@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projekt_ASP.Models;
 
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211210210514_M2")]
+    partial class M2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,7 +234,7 @@ namespace Projekt_ASP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Lastname")
+                    b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -248,10 +250,10 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -341,21 +343,17 @@ namespace Projekt_ASP.Migrations
 
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
-                    b.HasOne("Projekt_ASP.Models.Author", "Author")
+                    b.HasOne("Projekt_ASP.Models.Author", "author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
-                    b.HasOne("Projekt_ASP.Models.Category", "Category")
+                    b.HasOne("Projekt_ASP.Models.Category", "category")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
-                    b.Navigation("Author");
+                    b.Navigation("author");
 
-                    b.Navigation("Category");
+                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("Projekt_ASP.Models.Author", b =>

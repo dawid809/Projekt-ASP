@@ -13,6 +13,12 @@ namespace Projekt_ASP.Models
         IQueryable<Book> Books { get; }
     }
 
+    public interface ICategoryRepository
+    {
+        IQueryable<Category> Categories { get; }
+    }
+
+
     public class AppDbContext: IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -20,6 +26,7 @@ namespace Projekt_ASP.Models
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Author> Authors { get; set; }
     }
 
     public class EFBookRepository: IBookRepository
@@ -32,5 +39,7 @@ namespace Projekt_ASP.Models
         }
 
         public IQueryable<Book> Books => context.Books;
+        public IQueryable<Category> Categories => context.Categories;
+        public IQueryable<Author> Authors => context.Authors;
     }
 }

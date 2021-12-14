@@ -11,29 +11,34 @@
             <form asp-action="AddNewBook" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label">Podaj nazwe książki:</label>
+                    <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Author" class="control-label">Podaj autora:</label>
-                    <input asp-for="Author" class="form-control" />
-                    <span asp-validation-for="Author" class="text-danger"></span>
+                    <label asp-for="Author.FirstName" class="control-label"></label>
+                    <input asp-for="Author.FirstName" class="form-control" />
+                    <span asp-validation-for="Author.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Categories" class="control-label">Wybierz kategorie książki</label>
-                    <select asp-for="Categories" asp-items="Html.GetEnumSelectList<BookCategories>()">
+                    <label asp-for="Author.Lastname" class="control-label"></label>
+                    <input asp-for="Author.Lastname" class="form-control" />
+                    <span asp-validation-for="Author.Lastname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category.BookCategory" class="control-label"></label>
+                    <select asp-for="Category.BookCategory" class="selectpicker" data-live-search="true" asp-items="Html.GetEnumSelectList<BookCategories>()">
                         <option selected="selected" value="">Wybierz kategorie</option>
                     </select>
-                    <span asp-validation-for="Categories" class="text-danger"></span>
+                    <span asp-validation-for="Category.BookCategory" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PageCount" class="control-label">Podaj liczbe stron:</label>
+                    <label asp-for="PageCount" class="control-label"></label>
                     <input asp-for="PageCount" class="form-control" />
                     <span asp-validation-for="PageCount" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ReleaseDate" class="control-label">Podaj date wydania książki:</label>
+                    <label asp-for="ReleaseDate" class="control-label"></label>
                     <input asp-for="ReleaseDate" class="form-control" />
                     <span asp-validation-for="ReleaseDate" class="text-danger"></span>
                 </div>
@@ -45,3 +50,7 @@
         </div>
     </div>
 </div>
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>*@

@@ -28,7 +28,7 @@ namespace Projekt_ASP.Models
         private const string userPassword = "Endriu123*";
         private const string userEmail = "endriu@gmail.com";
 
-        public static async void CreateUserRoles(IApplicationBuilder app)
+        public static async void CreateUserRolesAndAssign(IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.CreateScope();
             var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetRequiredService(typeof(RoleManager<IdentityRole>));
@@ -78,7 +78,7 @@ namespace Projekt_ASP.Models
             {
                 normalUser = new AppUser()
                 {
-                    FirstName =userFirstname,
+                    FirstName = userFirstname,
                     LastName = userSurname,
                     UserName = userName,
                     Email = userEmail,
@@ -86,6 +86,31 @@ namespace Projekt_ASP.Models
                 await userManager.CreateAsync(normalUser, userPassword);
             }
             await userManager.AddToRoleAsync(normalUser, Roles.User.ToString());
+        }
+
+        public static async void SeedAllData(IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var _context = scope.ServiceProvider.GetService<AppDbContext>();
+                _context.Database.EnsureCreated();
+
+                //if (!_context.Books.Any())
+                //{
+                //    _context.Books.AddRange(new List<Book>()
+                //    {
+                //        new Book()
+                //        {
+                //            Name = "adad",
+                //            Author = "Jan",
+                //            CategoryId = BookCategories.Dramat,
+                //            PageCount = 111,
+                //            ReleaseDate = 2018
+                //        }
+                //    } );
+                //    _context.SaveChanges();
+                //}
+            }
         }
     }
 }

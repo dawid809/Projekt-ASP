@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Projekt ASP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />*@
+
     <environment include="Development">
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
@@ -23,7 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="BookList">Book List</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             @if (User.Identity.IsAuthenticated)
                             {
                                 @if (User.IsInRole("Admin"))
@@ -34,9 +38,16 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item ml-5 position-relative">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout(@User.Identity.Name)</a>
-                            </li>
+                    <div class="dropdown" id="dropdown-menu">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @User.Identity.Name
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item btn">Action</a>
+                            <a class="dropdown-item btn">Ustawienia</a>
+                            <a class="dropdown-item btn" asp-controller="Account" asp-action="Logout">Wyloguj</a>
+                        </div>
+                    </div>
 
                         }
                         else

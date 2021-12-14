@@ -72,7 +72,8 @@ namespace Projekt_ASP
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            IdentitySeedData.CreateUserRoles(app);
+            IdentitySeedData.SeedAllData(app);
+            IdentitySeedData.CreateUserRolesAndAssign(app);
         }
     }
 }

@@ -10,12 +10,23 @@ namespace Projekt_ASP.Models
     {
         public int AuthorId { get; set; }
 
-        [Required]
-        [Display(Name = "Imie")]
+        [Display(Name = "Imie autora")]
+        [Required(ErrorMessage = "Podaj imie autora!")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Nazwisko")]
-        [Required]
-        public string Surname { get; set; }
+        [Display(Name = "Nazwisko autora")]
+        [Required(ErrorMessage = "Podaj nazwisko autora!")]
+        public string Lastname { get; set; }
+
+        [Display(Name = "Imie i nazwisko autora")]
+        public string FullName
+        {
+            get
+            {
+                return Lastname + ", " + FirstName;
+            }
+        }
+
+        public ICollection<Book>Books { get; set; }
     }
 }

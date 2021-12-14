@@ -20,12 +20,12 @@ namespace Projekt_ASP.Models
         [DisplayName ("Nazwa książki")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Podaj autora książki!")]
-        [DisplayName ("Autor")]
-        public string Author { get; set; 
-        }
-        [Required(ErrorMessage = "Podaj kategorie książki!")]
-        public BookCategories Categories { get; set; } 
+        //[Required(ErrorMessage = "Podaj autora książki!")]
+        //[DisplayName ("Autor")]
+        //public string Author { get; set;  }
+
+        //[Required(ErrorMessage = "Podaj kategorie książki!")]
+        //public BookCategories Categories { get; set; } 
 
         [Required(ErrorMessage = "Podaj liczbe stron!")]
         [DisplayName ("Liczba stron")]
@@ -34,5 +34,13 @@ namespace Projekt_ASP.Models
         [Required(ErrorMessage = "Podaj date wydania książki!")]
         [DisplayName ("Data wydania")]
         public short ReleaseDate { get; set; }
+
+        //[Required(ErrorMessage = "Podaj autora książki!")]
+        //[DisplayName("Autor")]
+        public  int AuthorId { get; set; }
+        public Author Author { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

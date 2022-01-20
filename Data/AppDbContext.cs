@@ -18,6 +18,11 @@ namespace Projekt_ASP.Models
         IQueryable<Category> Categories { get; }
     }
 
+    public interface IAuthorRepository
+    {
+        IQueryable<Author> Authors { get; }
+    }
+
 
     public class AppDbContext: IdentityDbContext<AppUser>
     {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Projekt_ASP.Enums;
 using Microsoft.EntityFrameworkCore;
+using Projekt_ASP.Data;
 
 namespace Projekt_ASP.Controllers
 {
@@ -20,6 +21,7 @@ namespace Projekt_ASP.Controllers
         }
 
         [HttpGet]
+        [DisableBasicAuthentication]
         [Route("{id}")]
         public IActionResult Get(int ?id)
         {
@@ -74,6 +76,7 @@ namespace Projekt_ASP.Controllers
         }
 
         [HttpGet]
+        [DisableBasicAuthentication]
         public List<Book> GetAll()
         {
             return _context.Books.ToList();

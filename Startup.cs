@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Projekt_ASP.Enums;
+using Projekt_ASP.Data;
 
 namespace Projekt_ASP
 {
@@ -33,6 +34,11 @@ namespace Projekt_ASP
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
+            services.AddSingleton<BasicAuthorizationFilter>();
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                options.Filters.AddService<BasicAuthorizationFilter>();
+            });
             services.AddControllersWithViews();
             services.AddSession();
             services.AddAuthorization(options =>

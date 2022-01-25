@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Projekt_ASP.Enums;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Projekt_ASP.Models
 
     public class Book
     {
+        [Key]
         [HiddenInput]
         [DisplayName("Id książki")]
         public int BookId { get; set; }
@@ -37,10 +39,22 @@ namespace Projekt_ASP.Models
 
         //[Required(ErrorMessage = "Podaj autora książki!")]
         //[DisplayName("Autor")]
-        public  int AuthorId { get; set; }
         public Author Author { get; set; }
 
-        public int CategoryId { get; set; }
+        [Required]
         public Category Category { get; set; }
+
+        public static void ModelCreate(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>()
+                .HasOne(a => a.Author)
+                .WithMany(b => b.Books);
+            //.HasForeignKey(k => k.Author.AuthorId);
+
+            modelBuilder.Entity<Book>()
+               .HasOne(c => c.Category)
+               .WithMany(b => b.Books);
+               //.HasForeignKey(k => k.Category.CategoryId);
+        }
     }
 }

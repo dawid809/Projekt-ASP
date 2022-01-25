@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Net.Http.Headers;
+using Projekt_ASP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,46 +14,74 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Data
 {
-    public class BasicAuthorizationFilter: IAuthorizationFilter
+    public class BasicAuthorizationFilter : IAsyncAuthorizationFilter
     {
-        private const string USERNAME = "admin";
-        private const string PASSWORD = "1234";
-        private const string Realm = "App Realm";
+        private readonly UserManager<AppUser> userManager;
+        private readonly SignInManager<AppUser> signInManager;
 
-        public void OnAuthorization(AuthorizationFilterContext context)
+        public BasicAuthorizationFilter([FromServices] UserManager<AppUser> userManager, [FromServices] SignInManager<AppUser> signInManager)
         {
-            if(context.Filters.OfType<DisableBasicAuthentication>().Any())
-            {
-                return;
-            }
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+        }
 
-            if (!context.HttpContext.Request.Headers.Keys.Contains(HeaderNames.Authorization))
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        {
+            if (context.Filters.OfType<BasicAuthentication>().Any())
             {
-                context.HttpContext.Response.Headers.Add("WWW-Authenticate", string.Format("Basic realm=\"{0}\"", Realm));
-                context.Result = new UnauthorizedResult();
-                return;
-            }
-            string authenticationToken = context.HttpContext.Request.Headers[HeaderNames.Authorization];
-            authenticationToken = authenticationToken.Split(" ")[1].Trim();
-            string decodedAuthenticationToken = Encoding.UTF8.GetString(Convert.FromBase64String(authenticationToken));
-            string[] usernamePasswordAray = decodedAuthenticationToken.Split(':');
-            string username = usernamePasswordAray[0];
-            string password = usernamePasswordAray[1];
-            if(Validate(username, password))
-            {
-                var identity = new GenericIdentity(username);
-                IPrincipal principal = new GenericPrincipal(identity, null);
-                Thread.CurrentPrincipal = principal;
-            }
-            else
-            {
-                context.Result = new UnauthorizedResult();
+                IHeaderDictionary requestHeader = context.HttpContext.Request.Headers;
+
+                if (!requestHeader.Keys.Contains(HeaderNames.Authorization))
+                {
+                    context.Result = new UnauthorizedResult();
+                }
+                else
+                {
+                    string[] token = requestHeader.GetAuthentication();
+
+                    if (await this.Validate(token[0], token[1]))
+                    {
+                        GenericIdentity identity = new(token[0]);
+                        GenericPrincipal principal = new(identity, null);
+                        Thread.CurrentPrincipal = principal;
+                    }
+                    else
+                    {
+                        context.Result = new UnauthorizedResult();
+                    }
+                }
             }
         }
 
-        public static bool Validate (string username, string password)
+        private async Task<Boolean> Validate(string userName, string password)
         {
-            return USERNAME.Equals(username) && PASSWORD.Equals(password);
+            AppUser user = await userManager.FindByNameAsync(userName);
+
+            if (user != null)
+            {
+                await this.signInManager.SignOutAsync();
+
+                return (await signInManager.PasswordSignInAsync(user, password, false, false)).Succeeded;
+            }
+            return false;
         }
     }
+
+    public static class HeaderDictionaryAuthentication
+    {
+        public static string[] GetAuthentication(this IHeaderDictionary requestHeader)
+        {
+            return Encoding.UTF8.GetString(
+                    Convert.FromBase64String(
+                        ((string)requestHeader[HeaderNames.Authorization])
+                            .Split(" ")
+                            .Last()
+                            .Trim()))
+                .Split(":");
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    public class BasicAuthentication : Attribute, IFilterMetadata { }
 }
+

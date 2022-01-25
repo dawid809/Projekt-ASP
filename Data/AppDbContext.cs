@@ -32,6 +32,15 @@ namespace Projekt_ASP.Models
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Author> Authors { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            Book.ModelCreate(builder);
+            Category.ModelCreate(builder);
+            Author.ModelCreate(builder);
+        }
     }
 
     public class EFBookRepository: IBookRepository

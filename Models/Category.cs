@@ -11,6 +11,7 @@ namespace Projekt_ASP.Models
 {
     public class Category
     {
+        [Key]
         public int CategoryId { get; set; }
 
         [DisplayName("Kategoria książki")]
@@ -20,7 +21,13 @@ namespace Projekt_ASP.Models
 
         public ICollection<Book> Books { get; set; }
 
-
+        public static void ModelCreate(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .HasMany(b => b.Books)
+                .WithOne(c => c.Category)
+                .HasForeignKey(k => k.BookId);
+        }
         //internal static void ModelCreate(ModelBuilder builder)
         //{
         //    builder.Entity<Category>()
@@ -36,5 +43,5 @@ namespace Projekt_ASP.Models
         //        {
         //        }
         //    );
-        }
+    }
 }

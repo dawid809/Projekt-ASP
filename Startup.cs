@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Projekt_ASP.Enums;
 using Projekt_ASP.Data;
+using System.Text.Json.Serialization;
 
 namespace Projekt_ASP
 {
@@ -34,13 +35,14 @@ namespace Projekt_ASP
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
+            //Api
             services.AddSingleton<BasicAuthorizationFilter>();
-            services.AddMvc().AddMvcOptions(options =>
-            {
-                options.Filters.AddService<BasicAuthorizationFilter>();
-            });
+            services.AddMvc()
+                .AddMvcOptions(o => o.Filters.AddService<BasicAuthorizationFilter>())
+                .AddJsonOptions(o => o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
             services.AddControllersWithViews();
             services.AddSession();
+            //Authorization
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AdminAccess", policy => policy.RequireRole(Roles.Admin.ToString()));

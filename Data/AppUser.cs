@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Models
 {
-    public class AppUser: IdentityUser
+    public class AppUser : IdentityUser
     {
 
-        public AppUser(): base() { }
+        public AppUser() : base() { }
 
         //[PersonalData]
         //[Column(TypeName = "nvarchar(30)")]

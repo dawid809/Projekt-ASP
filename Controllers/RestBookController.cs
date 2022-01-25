@@ -21,7 +21,6 @@ namespace Projekt_ASP.Controllers
         }
 
         [HttpGet]
-        [DisableBasicAuthentication]
         [Route("{id}")]
         public IActionResult Get(int ?id)
         {
@@ -31,43 +30,26 @@ namespace Projekt_ASP.Controllers
             {
                 return BadRequest();
             }
-            if (book.BookId > 5)
-            {
-                return NotFound();
-            }
+            //if (book.BookId > 5)
+            //{
+            //    return NotFound();
+            //}
 
             return new OkObjectResult(book  
-            //  = new Book()
-            //{
-            //    BookId = 1,
-            //    Name = "TestBook",
-            //    Author = new Author()
-            //    {
-            //        AuthorId = 1,
-            //        FirstName = "TestJan",
-            //        Lastname = "TestKowalski",
-            //    },
-            //    Category = new Category()
-            //    {
-            //        CategoryId = 1,
-            //        BookCategory = BookCategories.History,
-            //    },
-            //    PageCount = 211,
-            //    ReleaseDate = 2015
-            //}
             );
         }
 
         [HttpDelete]
         [Route("{id}")]
+        [BasicAuthentication]
         public IActionResult Delete(int id)
         {
             var book = _context.Books.Find(id);
 
-            if (book.BookId > 5)
-            {
-                return NotFound();
-            }
+            //if (book.BookId > 5)
+            //{
+            //    return NotFound();
+            //}
             _context.Books.Remove(book);
             _context.SaveChanges();
 
@@ -76,13 +58,13 @@ namespace Projekt_ASP.Controllers
         }
 
         [HttpGet]
-        [DisableBasicAuthentication]
         public List<Book> GetAll()
         {
             return _context.Books.ToList();
         }
 
         [HttpPost]
+        [BasicAuthentication]
         public IActionResult Post([FromBody] Book book)
         {
             _context.Add(book);
@@ -93,6 +75,7 @@ namespace Projekt_ASP.Controllers
                 );
         }
 
+        [BasicAuthentication]
         [HttpPut("{id}")]
         public IActionResult Put (int id, [FromBody] Book book)
         {
@@ -112,51 +95,5 @@ namespace Projekt_ASP.Controllers
             }
             return NoContent();
         }
-        //deklaracja repo
-        //[HttpGet]
-        //public string Get() => "heelo";
-        //[Route("{id}")]
-        //public IActionResult Get(int ?id)
-        //{
-        //    if(id == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    if (id > 0 && id < 6)
-        //    {
-        //        Book book = new Book()
-        //        {
-        //            BookId = 1,
-        //            Name = "Test",
-        //            Author = new Author()
-        //            {
-        //                AuthorId = 1,
-        //                FirstName = "Jan",
-        //                Lastname = "Kowalski",
-        //            },
-        //            Category = new Category()
-        //            {
-        //                CategoryId = 1,
-        //                BookCategory = BookCategories.History,
-        //            },
-        //            //Category = new Category()
-        //            //{
-        //            //    CategoryId = 1,
-        //            //    BookCategory = (BookCategories)Enum.Parse(typeof(BookCategories), "Dramat"),
-        //            //    //BookCategory = Enum.Parse(typeof Enum.BookCategories, Dramat),
-        //            //    //BookCategory = (BookCategories)Enum.Parse(typeof(BookCategories), "Dramat")
-        //            //    //BookCategory = (BookCategories)Enum.Parse(typeof(BookCategories), "Dramat".ToString()),
-        //            //},
-        //            PageCount = 211,
-        //            ReleaseDate = 2015,
-        //        };
-        //        return book;
-        //    }
-        //    else
-        //    {
-        //       return NotFound();
-        //    }
-        //}
     }
 }

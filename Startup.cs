@@ -36,11 +36,13 @@ namespace Projekt_ASP
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
             services.AddTransient<ICRUDAuthorRepository, CRUDAuthorRepository>();
+            services.AddTransient<ICRUDCategoryRepository, CRUDCategoryRepository>();
             //Api
             services.AddSingleton<BasicAuthorizationFilter>();
             services.AddMvc()
                 .AddMvcOptions(o => o.Filters.AddService<BasicAuthorizationFilter>())
-                .AddJsonOptions(o => o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+                .AddJsonOptions(o => o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)
+                .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddControllersWithViews();
             services.AddSession();
             //Authorization
@@ -83,6 +85,7 @@ namespace Projekt_ASP
 
             IdentitySeedData.SeedAllData(app);
             IdentitySeedData.CreateUserRolesAndAssign(app);
+            IdentitySeedData.DbInitializer.Seed(app);
         }
     }
 }

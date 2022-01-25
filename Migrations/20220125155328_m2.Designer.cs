@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211210201314_M1")]
-    partial class M1
+    [Migration("20220125155328_m2")]
+    partial class m2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,7 +234,7 @@ namespace Projekt_ASP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Surname")
+                    b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -246,15 +246,9 @@ namespace Projekt_ASP.Migrations
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
                     b.Property<int>("BookId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -269,7 +263,7 @@ namespace Projekt_ASP.Migrations
 
                     b.HasKey("BookId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
                 });
@@ -281,8 +275,9 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookCategory")
-                        .HasColumnType("int");
+                    b.Property<string>("BookCategoryString")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BookCategory");
 
                     b.HasKey("CategoryId");
 
@@ -342,13 +337,24 @@ namespace Projekt_ASP.Migrations
 
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
-                    b.HasOne("Projekt_ASP.Models.Category", "category")
+                    b.HasOne("Projekt_ASP.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("Projekt_ASP.Models.Category", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("Author");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Projekt_ASP.Models.Author", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Projekt_ASP.Models.Category", b =>

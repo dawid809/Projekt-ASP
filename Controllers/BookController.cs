@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Projekt_ASP.Enums;
 using Projekt_ASP.Models;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,17 @@ namespace Projekt_ASP.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add([FromServices] ICRUDCategoryRepository repository)
         {
+            ViewData["Category"] = repository.FindAll();
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddNewBook(Book book)
+        public IActionResult AddNewBook(AddBook book, [FromServices] ICRUDCategoryRepository rep)
         {
+            //book.Category = rep.Find(book.Category.CategoryId);
+            //book.Category.BookCategory = (BookCategories)book.Category.CategoryId;
             if (ModelState.IsValid)
             {
                 repository.Add(book);
@@ -39,6 +43,7 @@ namespace Projekt_ASP.Controllers
             }
             else
             {
+                ViewData["Category"] = rep.FindAll();
                 return View("Add");
             }
         }

@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211214111958_M4")]
-    partial class M4
+    [Migration("20220125142442_M1")]
+    partial class M1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,14 +246,9 @@ namespace Projekt_ASP.Migrations
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
                     b.Property<int>("BookId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -270,8 +265,6 @@ namespace Projekt_ASP.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Books");
                 });
 
@@ -282,8 +275,9 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookCategory")
-                        .HasColumnType("int");
+                    b.Property<string>("BookCategoryString")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BookCategory");
 
                     b.HasKey("CategoryId");
 
@@ -345,13 +339,11 @@ namespace Projekt_ASP.Migrations
                 {
                     b.HasOne("Projekt_ASP.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("Projekt_ASP.Models.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

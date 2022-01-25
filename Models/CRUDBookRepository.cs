@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Projekt_ASP.Models
     {
         Book Find(int id);
         Book Delete(int id);
-        Book Add(Book book);
+        Book Add(AddBook book);
         Book Update(Book book);
 
         IList<Book> FindAll();
@@ -23,9 +24,16 @@ namespace Projekt_ASP.Models
             _context = context;
         }
 
-        public Book Add(Book book)
+        public Book Add(AddBook book)
         {
-            var entity = _context.Books.Add(book).Entity;
+            var cat = _context.Categories.FirstOrDefault(x => x.CategoryId == book.CategoryId);
+            var aut = _context.Authors.FirstOrDefault(x => x.FirstName == book.FirstName && x.Lastname == book.LastName);
+            if(aut == null)
+            {
+              aut = _context.Authors.Add(new Author { FirstName = book.FirstName, Lastname = book.LastName }).Entity;
+            }
+            var entity = _context.Books.Add(new Book { Author = aut, Category = cat, Name = book.Name, PageCount = book.PageCount, ReleaseDate = book.ReleaseDate }).Entity;
+            //book.Category = cat;
             _context.SaveChanges();
             return entity;
         }
@@ -51,7 +59,7 @@ namespace Projekt_ASP.Models
 
         public IList<Book> FindAll()
         {
-            return _context.Books.ToList();
+            return _context.Books.Include(a => a.Author).Include(a => a.Category).ToList();
         }
 
     }

@@ -1,8 +1,10 @@
-﻿@model Projekt_ASP.Models.Book
+﻿@model Projekt_ASP.Models.AddBook
 @using Projekt_ASP.Enums
 
 @{
     ViewData["Title"] = "Add";
+
+    var category = (List<Category>)ViewData["Category"];
 }
 
 <div>
@@ -16,28 +18,26 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Author.AuthorId" class="control-label"></label>
-                    <select asp-for="Author.AuthorId" class="selectpicker" data-live-search="true" >
-                        <option selected="selected" value="">Wybierz kategorie</option>
-                    </select>
-                    <span asp-validation-for="Author.AuthorId" class="text-danger"></span>
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
-                @*<div class="form-group">
-            <label asp-for="Author.FirstName" class="control-label"></label>
-            <input asp-for="Author.FirstName" class="form-control" />
-            <span asp-validation-for="Author.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Author.Lastname" class="control-label"></label>
-            <input asp-for="Author.Lastname" class="form-control" />
-            <span asp-validation-for="Author.Lastname" class="text-danger"></span>
-        </div>*@
                 <div class="form-group">
-                    <label asp-for="Category.BookCategory" class="control-label"></label>
-                    <select asp-for="Category.BookCategory" class="selectpicker" data-live-search="true" asp-items="Html.GetEnumSelectList<BookCategories>()">
-                        <option selected="selected" value="">Wybierz kategorie</option>
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    @*<input type="hidden" asp-for="Category."/>*@
+                    <select asp-for="CategoryId" class="selectpicker" data-live-search="true">
+                        <option value="">-- Nieokreślona --</option>
+                        @{ foreach (var item in category)
+                            {
+                                <option value="@item.CategoryId">@item.BookCategoryString</option>
+                            }}
                     </select>
-                    <span asp-validation-for="Category.BookCategory" class="text-danger"></span>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PageCount" class="control-label"></label>
@@ -59,5 +59,5 @@
 </div>
 
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>*@
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>*@

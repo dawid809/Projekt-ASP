@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
-    public class AuthorController : Controller
+    public class CategoryController : Controller
     {
-        private readonly ICRUDAuthorRepository repository;
+        private readonly ICRUDCategoryRepository repository;
 
-        public AuthorController(ICRUDAuthorRepository repository)
+        public CategoryController(ICRUDCategoryRepository repository)
         {
             this.repository = repository;
         }
@@ -25,8 +25,8 @@ namespace Projekt_ASP.Controllers
         // GET: AuthorController/Details/5
         public IActionResult Details(int id)
         {
-            var author = repository.Find(id);
-            return View(author);
+            var category = repository.Find(id);
+            return View(category);
         }
 
         // GET: AuthorController/Create
@@ -37,11 +37,11 @@ namespace Projekt_ASP.Controllers
 
         // POST: AuthorController/Create
         [HttpPost]
-        public IActionResult Create(Author author)
+        public IActionResult Create(Category category)
         {
             if (ModelState.IsValid)
             {
-                repository.Add(author);
+                repository.Add(category);
                 return View("Index", repository.FindAll());
             }
             else
@@ -50,60 +50,34 @@ namespace Projekt_ASP.Controllers
             }
         }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    //var newBook = repository.Find(id);
-        //    return View(model: repository.Find(id));
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(Book newBook)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        repository.Update(newBook);
-        //        return View("BookList", repository.FindAll());
-        //    }
-        //    else
-        //    {
-        //        //return View("Edit", newBook);
-        //        return View("Edit");
-        //    }
-        //}
-
         // GET: AuthorController/Edit/5
         public IActionResult Edit(int id)
         {
-            //var editAuthor = repository.Find(id);
-            //return View(editAuthor);
             return View(model: repository.Find(id));
         }
 
         // POST: AuthorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Author editAuthor)
+        public IActionResult Edit(Category editCategory)
         {
             if (ModelState.IsValid)
             {
-                repository.Update(editAuthor);
+                repository.Update(editCategory);
                 return View("Index", repository.FindAll());
             }
             else
             {
-                //return View("Edit", newBook);
                 return View("Edit");
             }
         }
 
-        //GET: AuthorController/Delete/5
         public IActionResult Delete(int id)
         {
             return View(repository.Find(id));
         }
 
 
-        // POST: AuthorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, IFormCollection collection)

@@ -112,6 +112,92 @@ namespace Projekt_ASP.Models
                 //}
             }
         }
+
+        public static class DbInitializer
+        {
+            public static void Seed(IApplicationBuilder applicationBuilder)
+            {
+                AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
+                // Seed Authors
+                if (context.Authors.Any())
+                {
+                    return;
+                }
+
+                var authors = new Author[]
+                {
+                    new Author {FirstName = "Jan", Lastname = "Kowalski"}
+                };
+
+                foreach (Author a in authors)
+                {
+                    context.Authors.Add(a);
+                }
+                context.SaveChanges();
+
+
+                // Seed Categories
+                if (context.Categories.Any())
+                {
+                    return;
+                }
+                var categories = new Category[]
+                {
+                    new Category {BookCategory = BookCategories.Action}
+                };
+                foreach (Category c in categories)
+                {
+                    context.Categories.Add(c);
+                }
+                context.SaveChanges();
+
+
+                // Seed Books
+                if (context.Books.Any())
+                {
+                    return;   // DB has been seeded
+                }
+
+                var books = new Book[]
+            {
+                    new Book { Name = "Book1",
+                        Author = authors.Single(a => a.AuthorId == 1),
+                      Category = categories.Single(c => c.CategoryId == 1),
+                    PageCount = 123, ReleaseDate = 321 }
+            };
+
+                foreach (Book b in books)
+                {
+                    context.Books.Add(b);
+                }
+                context.SaveChanges();
+            }
+            //foreach (Category category in Enum.GetNames(typeof(BookCategories)))
+            //{
+            //    Enum.TryParse(category, BookCategories);
+            //    context.Categories.Add(category).ToString();
+            //}
+
+
+
+            //if (context.Books.Any())
+            //{
+            //    return;   // DB has been seeded
+            //}
+
+            //    var books = new Book[]
+            //{
+            //    new Book { Name = "Book1", Author = "Jan",  Category = BookCategories.Action,
+            //    PageCount = 123, ReleaseDate = 321 }
+            //};
+
+            //    foreach (Book b in books)
+            //    {
+            //        context.Books.Add(b);
+            //    }
+            //    context.SaveChanges();
+            //}
+        }
     }
 }
 

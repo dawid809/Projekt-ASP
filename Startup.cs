@@ -35,6 +35,7 @@ namespace Projekt_ASP
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
+            services.AddTransient<ICRUDAuthorRepository, CRUDAuthorRepository>();
             //Api
             services.AddSingleton<BasicAuthorizationFilter>();
             services.AddMvc()

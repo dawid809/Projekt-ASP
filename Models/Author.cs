@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace Projekt_ASP.Models
     public class Author
     {
         [Key]
+        [HiddenInput]
         public int AuthorId { get; set; }
 
         [Display(Name = "Imie autora")]
@@ -25,7 +27,7 @@ namespace Projekt_ASP.Models
         {
             get
             {
-                return Lastname + ", " + FirstName;
+                return FirstName + " " + Lastname;
             }
         }
 

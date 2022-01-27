@@ -19,26 +19,18 @@ namespace Projekt_ASP.Models
         public int BookId { get; set; }
 
         [Required(ErrorMessage = "Podaj nazwe książki!")]
-        [DisplayName ("Nazwa książki")]
+        [DisplayName("Nazwa książki")]
         public string Name { get; set; }
 
-        //[Required(ErrorMessage = "Podaj autora książki!")]
-        //[DisplayName ("Autor")]
-        //public string Author { get; set;  }
-
-        //[Required(ErrorMessage = "Podaj kategorie książki!")]
-        //public BookCategories Categories { get; set; } 
-
         [Required(ErrorMessage = "Podaj liczbe stron!")]
-        [DisplayName ("Liczba stron")]
+        [DisplayName("Liczba stron")]
         public short PageCount { get; set; }
 
         [Required(ErrorMessage = "Podaj date wydania książki!")]
-        [DisplayName ("Data wydania")]
+        [DisplayName("Data wydania")]
         public short ReleaseDate { get; set; }
 
-        //[Required(ErrorMessage = "Podaj autora książki!")]
-        //[DisplayName("Autor")]
+        [Required]
         public Author Author { get; set; }
 
         [Required]
@@ -49,12 +41,10 @@ namespace Projekt_ASP.Models
             modelBuilder.Entity<Book>()
                 .HasOne(a => a.Author)
                 .WithMany(b => b.Books);
-            //.HasForeignKey(k => k.Author.AuthorId);
 
             modelBuilder.Entity<Book>()
                .HasOne(c => c.Category)
                .WithMany(b => b.Books);
-               //.HasForeignKey(k => k.Category.CategoryId);
         }
     }
 }

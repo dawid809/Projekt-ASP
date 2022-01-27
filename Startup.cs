@@ -82,10 +82,8 @@ namespace Projekt_ASP
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            IdentitySeedData.SeedAllData(app);
             IdentitySeedData.CreateUserRolesAndAssign(app);
-            IdentitySeedData.DbInitializer.Seed(app);
+            IdentitySeedData.SeedAllData(app);
         }
     }
 }

@@ -15,14 +15,14 @@ namespace Projekt_ASP.Controllers
     public class RestBookController : Controller
     {
         private readonly AppDbContext _context;
-        public RestBookController (AppDbContext context)
+        public RestBookController(AppDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult Get(int ?id)
+        public IActionResult Get(int? id)
         {
             var book = _context.Books.Find(id);
 
@@ -30,12 +30,7 @@ namespace Projekt_ASP.Controllers
             {
                 return BadRequest();
             }
-            //if (book.BookId > 5)
-            //{
-            //    return NotFound();
-            //}
-
-            return new OkObjectResult(book  
+            return new OkObjectResult(book
             );
         }
 
@@ -46,10 +41,10 @@ namespace Projekt_ASP.Controllers
         {
             var book = _context.Books.Find(id);
 
-            //if (book.BookId > 5)
-            //{
-            //    return NotFound();
-            //}
+            if (book == null)
+            {
+                return BadRequest($"Object with id #{id} not exist.");
+            }
             _context.Books.Remove(book);
             _context.SaveChanges();
 
@@ -70,14 +65,12 @@ namespace Projekt_ASP.Controllers
             _context.Add(book);
             _context.SaveChanges();
             return CreatedAtAction(nameof(Get),
-                new {id = book.BookId },
-                book
-                );
+                new { id = book.BookId }, book);
         }
 
         [BasicAuthentication]
         [HttpPut("{id}")]
-        public IActionResult Put (int id, [FromBody] Book book)
+        public IActionResult Put(int id, [FromBody] Book book)
         {
             if (id != book.BookId) return BadRequest();
             _context.Entry(book).State = EntityState.Modified;

@@ -10,8 +10,8 @@ using Projekt_ASP.Models;
 namespace Projekt_ASP.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220125142442_M1")]
-    partial class M1
+    [Migration("20220127110117_m1")]
+    partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -246,9 +246,14 @@ namespace Projekt_ASP.Migrations
             modelBuilder.Entity("Projekt_ASP.Models.Book", b =>
                 {
                     b.Property<int>("BookId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -264,6 +269,8 @@ namespace Projekt_ASP.Migrations
                     b.HasKey("BookId");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
                 });
@@ -339,11 +346,13 @@ namespace Projekt_ASP.Migrations
                 {
                     b.HasOne("Projekt_ASP.Models.Author", "Author")
                         .WithMany("Books")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Projekt_ASP.Models.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

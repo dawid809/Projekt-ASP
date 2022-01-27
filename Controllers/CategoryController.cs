@@ -22,20 +22,17 @@ namespace Projekt_ASP.Controllers
             return View(repository.FindAll());
         }
 
-        // GET: AuthorController/Details/5
         public IActionResult Details(int id)
         {
             var category = repository.Find(id);
             return View(category);
         }
 
-        // GET: AuthorController/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AuthorController/Create
         [HttpPost]
         public IActionResult Create(Category category)
         {
@@ -50,13 +47,11 @@ namespace Projekt_ASP.Controllers
             }
         }
 
-        // GET: AuthorController/Edit/5
         public IActionResult Edit(int id)
         {
             return View(model: repository.Find(id));
         }
 
-        // POST: AuthorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category editCategory)
@@ -76,7 +71,6 @@ namespace Projekt_ASP.Controllers
         {
             return View(repository.Find(id));
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

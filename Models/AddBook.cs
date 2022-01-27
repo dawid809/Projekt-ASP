@@ -22,13 +22,16 @@ namespace Projekt_ASP.Models
         [DisplayName("Data wydania")]
         public short ReleaseDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Podaj imie autora!")]
+        [DisplayName("Imie autora")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Podaj nazwisko autora!")]
+        [DisplayName("Nazwisko autora")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wybierz kategorie książki!")]
+        [DisplayName("Kategoria książki")]
         public int CategoryId { get; set; }
     }
 }

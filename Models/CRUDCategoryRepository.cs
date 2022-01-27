@@ -14,6 +14,7 @@ namespace Projekt_ASP.Models
 
         IList<Category> FindAll();
     }
+
     public class CRUDCategoryRepository : ICRUDCategoryRepository
     {
         private readonly AppDbContext _context;

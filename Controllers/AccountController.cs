@@ -43,7 +43,7 @@ namespace Projekt_ASP.Controllers
 
                 var result = await _userManager.CreateAsync(user, register.Password);
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
@@ -58,23 +58,22 @@ namespace Projekt_ASP.Controllers
             }
             return View(register);
         }
-       
+
 
         [AllowAnonymous]
         [HttpGet]
-
         public IActionResult Login(string returnUrl)
         {
             return View(new Login
             {
-               ReturnUrl = returnUrl
+                ReturnUrl = returnUrl
             });
         }
 
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login (Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             if (ModelState.IsValid)
             {

@@ -11,18 +11,18 @@ namespace Projekt_ASP.Controllers
 {
     public class BookController : Controller
     {
-
         private readonly ICRUDBookRepository repository;
 
         public BookController(ICRUDBookRepository repository)
         {
             this.repository = repository;
         }
-   
+
         public IActionResult Index()
         {
             return View(repository.FindAll());
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult Add([FromServices] ICRUDCategoryRepository repository)
@@ -34,8 +34,6 @@ namespace Projekt_ASP.Controllers
         [HttpPost]
         public IActionResult AddNewBook(AddBook book, [FromServices] ICRUDCategoryRepository rep)
         {
-            //book.Category = rep.Find(book.Category.CategoryId);
-            //book.Category.BookCategory = (BookCategories)book.Category.CategoryId;
             if (ModelState.IsValid)
             {
                 repository.Add(book);
@@ -52,7 +50,6 @@ namespace Projekt_ASP.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            //var newBook = repository.Find(id);
             return View(model: repository.Find(id));
         }
 
@@ -66,17 +63,16 @@ namespace Projekt_ASP.Controllers
             }
             else
             {
-                //return View("Edit", newBook);
                 return View("Edit");
             }
         }
-
 
         public IActionResult Description(int id)
         {
             var book = repository.Find(id);
             return View(book);
         }
+
         [Authorize]
         public IActionResult Delete(int id)
         {

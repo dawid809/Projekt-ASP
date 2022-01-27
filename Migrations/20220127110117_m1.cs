@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Projekt_ASP.Migrations
 {
-    public partial class M1 : Migration
+    public partial class m1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -185,11 +185,13 @@ namespace Projekt_ASP.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PageCount = table.Column<short>(type: "smallint", nullable: false),
                     ReleaseDate = table.Column<short>(type: "smallint", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: true)
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,10 +201,10 @@ namespace Projekt_ASP.Migrations
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "AuthorId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Books_Categories_BookId",
-                        column: x => x.BookId,
+                        name: "FK_Books_Categories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
@@ -251,6 +253,11 @@ namespace Projekt_ASP.Migrations
                 name: "IX_Books_AuthorId",
                 table: "Books",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_CategoryId",
+                table: "Books",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

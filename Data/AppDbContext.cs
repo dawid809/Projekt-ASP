@@ -24,7 +24,7 @@ namespace Projekt_ASP.Models
     }
 
 
-    public class AppDbContext: IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -43,7 +43,7 @@ namespace Projekt_ASP.Models
         }
     }
 
-    public class EFBookRepository: IBookRepository
+    public class EFBookRepository : IBookRepository
     {
         private readonly AppDbContext context;
 

@@ -22,20 +22,17 @@ namespace Projekt_ASP.Controllers
             return View(repository.FindAll());
         }
 
-        // GET: AuthorController/Details/5
         public IActionResult Details(int id)
         {
             var author = repository.Find(id);
             return View(author);
         }
 
-        // GET: AuthorController/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AuthorController/Create
         [HttpPost]
         public IActionResult Create(Author author)
         {
@@ -50,36 +47,12 @@ namespace Projekt_ASP.Controllers
             }
         }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    //var newBook = repository.Find(id);
-        //    return View(model: repository.Find(id));
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(Book newBook)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        repository.Update(newBook);
-        //        return View("BookList", repository.FindAll());
-        //    }
-        //    else
-        //    {
-        //        //return View("Edit", newBook);
-        //        return View("Edit");
-        //    }
-        //}
-
-        // GET: AuthorController/Edit/5
         public IActionResult Edit(int id)
         {
-            //var editAuthor = repository.Find(id);
-            //return View(editAuthor);
+
             return View(model: repository.Find(id));
         }
 
-        // POST: AuthorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Author editAuthor)
@@ -91,19 +64,15 @@ namespace Projekt_ASP.Controllers
             }
             else
             {
-                //return View("Edit", newBook);
                 return View("Edit");
             }
         }
 
-        //GET: AuthorController/Delete/5
         public IActionResult Delete(int id)
         {
             return View(repository.Find(id));
         }
 
-
-        // POST: AuthorController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, IFormCollection collection)

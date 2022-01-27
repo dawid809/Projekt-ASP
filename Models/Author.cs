@@ -31,14 +31,13 @@ namespace Projekt_ASP.Models
             }
         }
 
-        public ICollection<Book>Books { get; set; }
+        public ICollection<Book> Books { get; set; }
 
         public static void ModelCreate(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>()
                 .HasMany(b => b.Books)
                 .WithOne(a => a.Author);
-                //.HasForeignKey(k => k.BookId);
         }
     }
 }

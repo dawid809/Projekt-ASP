@@ -29,8 +29,7 @@ namespace Projekt_ASP.Models
         {
             modelBuilder.Entity<Category>()
                 .HasMany(b => b.Books)
-                .WithOne(c => c.Category)
-                .HasForeignKey(k => k.BookId);
+                .WithOne(c => c.Category);
         }
 
         [Column("BookCategory")]
@@ -39,21 +38,6 @@ namespace Projekt_ASP.Models
             get { return BookCategory.ToString(); }
             private set { BookCategory = value.ParseEnum<BookCategories>(); }
         }
-        //internal static void ModelCreate(ModelBuilder builder)
-        //{
-        //    builder.Entity<Category>()
-        //        .HasOne(x => x.Books)
-        //        .WithOne(BookCategory);
-
-        //    builder.Entity<User>()
-        //        .HasIndex(a => a.Email)
-        //        .IsUnique(true);
-
-        //    builder.Entity<User>().HasData(
-        //        new Category()
-        //        {
-        //        }
-        //    );
     }
 
     public static class StringExtensions

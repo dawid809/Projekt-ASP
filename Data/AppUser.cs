@@ -9,16 +9,10 @@ namespace Projekt_ASP.Models
 {
     public class AppUser : IdentityUser
     {
-
         public AppUser() : base() { }
 
-        //[PersonalData]
-        //[Column(TypeName = "nvarchar(30)")]
         public string FirstName { get; set; }
 
-        //[PersonalData]
-        //[Column(TypeName = "nvarchar(30)")]
         public string LastName { get; set; }
-
     }
 }

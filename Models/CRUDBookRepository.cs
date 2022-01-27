@@ -15,11 +15,12 @@ namespace Projekt_ASP.Models
 
         IList<Book> FindAll();
     }
+
     public class CRUDBookRepository : ICRUDBookRepository
     {
         private readonly AppDbContext _context;
 
-        public CRUDBookRepository (AppDbContext context)
+        public CRUDBookRepository(AppDbContext context)
         {
             _context = context;
         }
@@ -28,12 +29,11 @@ namespace Projekt_ASP.Models
         {
             var cat = _context.Categories.FirstOrDefault(x => x.CategoryId == book.CategoryId);
             var aut = _context.Authors.FirstOrDefault(x => x.FirstName == book.FirstName && x.Lastname == book.LastName);
-            if(aut == null)
+            if (aut == null)
             {
-              aut = _context.Authors.Add(new Author { FirstName = book.FirstName, Lastname = book.LastName }).Entity;
+                aut = _context.Authors.Add(new Author { FirstName = book.FirstName, Lastname = book.LastName }).Entity;
             }
             var entity = _context.Books.Add(new Book { Author = aut, Category = cat, Name = book.Name, PageCount = book.PageCount, ReleaseDate = book.ReleaseDate }).Entity;
-            //book.Category = cat;
             _context.SaveChanges();
             return entity;
         }
@@ -61,6 +61,5 @@ namespace Projekt_ASP.Models
         {
             return _context.Books.Include(a => a.Author).Include(a => a.Category).ToList();
         }
-
     }
 }

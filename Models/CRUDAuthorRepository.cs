@@ -14,6 +14,7 @@ namespace Projekt_ASP.Models
 
         IList<Author> FindAll();
     }
+
     public class CRUDAuthorRepository : ICRUDAuthorRepository
     {
         private readonly AppDbContext _context;

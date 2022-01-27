@@ -88,116 +88,114 @@ namespace Projekt_ASP.Models
             await userManager.AddToRoleAsync(normalUser, Roles.User.ToString());
         }
 
-        public static async void SeedAllData(IApplicationBuilder app)
+        public static void SeedAllData(IApplicationBuilder applicationBuilder)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var _context = scope.ServiceProvider.GetService<AppDbContext>();
-                _context.Database.EnsureCreated();
+            AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
 
-                //if (!_context.Books.Any())
-                //{
-                //    _context.Books.AddRange(new List<Book>()
-                //    {
-                //        new Book()
-                //        {
-                //            Name = "adad",
-                //            Author = "Jan",
-                //            CategoryId = BookCategories.Dramat,
-                //            PageCount = 111,
-                //            ReleaseDate = 2018
-                //        }
-                //    } );
-                //    _context.SaveChanges();
-                //}
+            // Seed Authors
+            if (context.Authors.Any())
+            {
+                return;
             }
-        }
 
-        public static class DbInitializer
-        {
-            public static void Seed(IApplicationBuilder applicationBuilder)
+            var authors = new Author[]
             {
-                AppDbContext context = applicationBuilder.ApplicationServices.GetRequiredService<AppDbContext>();
-                // Seed Authors
-                if (context.Authors.Any())
-                {
-                    return;
-                }
-
-                var authors = new Author[]
-                {
-                    new Author {FirstName = "Jan", Lastname = "Kowalski"}
-                };
-
-                foreach (Author a in authors)
-                {
-                    context.Authors.Add(a);
-                }
-                context.SaveChanges();
-
-
-                // Seed Categories
-                if (context.Categories.Any())
-                {
-                    return;
-                }
-                var categories = new Category[]
-                {
-                    new Category {BookCategory = BookCategories.Action}
-                };
-                foreach (Category c in categories)
-                {
-                    context.Categories.Add(c);
-                }
-                context.SaveChanges();
-
-
-                // Seed Books
-                if (context.Books.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-                var books = new Book[]
-            {
-                    new Book { Name = "Book1",
-                        Author = authors.Single(a => a.AuthorId == 1),
-                      Category = categories.Single(c => c.CategoryId == 1),
-                    PageCount = 123, ReleaseDate = 321 }
+                new Author {FirstName = "Jan", Lastname = "Brzechwa"},
+                new Author {FirstName = "Bolesław", Lastname = "Prus"},
+                new Author {FirstName = "Aleksander", Lastname = "Kamiński"},
+                new Author {FirstName = "Joseph", Lastname = "Conrad"},
+                new Author {FirstName = "J.K.", Lastname = "Rowling"}
             };
 
-                foreach (Book b in books)
-                {
-                    context.Books.Add(b);
-                }
-                context.SaveChanges();
+            foreach (Author a in authors)
+            {
+                context.Authors.Add(a);
             }
-            //foreach (Category category in Enum.GetNames(typeof(BookCategories)))
-            //{
-            //    Enum.TryParse(category, BookCategories);
-            //    context.Categories.Add(category).ToString();
-            //}
+            context.SaveChanges();
 
+            // Seed Categories
+            if (context.Categories.Any())
+            {
+                return;
+            }
 
+            var length = Enum.GetNames(typeof(BookCategories)).Length;
+            var categories = new Category[length];
 
-            //if (context.Books.Any())
-            //{
-            //    return;   // DB has been seeded
-            //}
+            for (int i = 1; i <= length; i++)
+            {
+                categories[i - 1] = new Category { BookCategory = (BookCategories)i };
+            }
 
-            //    var books = new Book[]
-            //{
-            //    new Book { Name = "Book1", Author = "Jan",  Category = BookCategories.Action,
-            //    PageCount = 123, ReleaseDate = 321 }
-            //};
+            foreach (Category c in categories)
+            {
+                context.Categories.Add(c);
+            }
+            context.SaveChanges();
 
-            //    foreach (Book b in books)
-            //    {
-            //        context.Books.Add(b);
-            //    }
-            //    context.SaveChanges();
-            //}
+            // Seed Books
+            if (context.Books.Any())
+            {
+                return;
+            }
+
+            var books = new Book[]
+            {
+                new Book { Name = "Akademia pana Kleksa",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 1),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 14),
+                           PageCount = 136, ReleaseDate = 2013 },
+                new Book { Name = "Lalka",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 2),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 7),
+                           PageCount = 678, ReleaseDate = 2017 },
+                new Book { Name = "Faraon",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 2),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 15),
+                           PageCount = 400 , ReleaseDate = 2015 },
+                new Book { Name = "Kamienie na szaniec",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 16),
+                           PageCount = 256, ReleaseDate = 2013 },
+                new Book { Name = "Jądro ciemności",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 4),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           PageCount = 96, ReleaseDate = 2018 },
+                new Book { Name = "Harry Potter i Kamień Filozoficzny",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 17),
+                           PageCount = 323, ReleaseDate = 2016 },
+                new Book { Name = "Harry Potter i Komnata Tajemnic",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 6),
+                           PageCount = 358, ReleaseDate = 2016 },
+                new Book { Name = "Harry Potter i więzień Azkabanu",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           PageCount = 448, ReleaseDate = 2016 },
+                new Book { Name = "Harry Potter i Czara Ognia",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           PageCount = 768, ReleaseDate = 2016 },
+                new Book { Name = "Harry Potter i Zakon Feniksa",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           PageCount = 960, ReleaseDate = 2016 },
+                new Book { Name = "Harry Potter i Książę Półkrwi",
+                           Author = authors.FirstOrDefault(a => a.AuthorId == 5),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           PageCount = 704, ReleaseDate = 2016 }
+            };
+
+            foreach (Book b in books)
+            {
+                context.Books.Add(b);
+            }
+            context.SaveChanges();
         }
+
     }
 }
+
+
 

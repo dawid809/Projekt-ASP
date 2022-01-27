@@ -8,12 +8,12 @@ namespace Projekt_ASP.Models
 {
     public class Login
     {
-        [Required]
+        [Required(ErrorMessage = "Podaj login!")]
         [Display(Name = "Login")]
         public string Name { get; set; }
 
-        [Required]
-        [UIHint("password")]
+        [Required(ErrorMessage = "Podaj hasło!")]
+        [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 

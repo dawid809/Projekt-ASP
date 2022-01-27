@@ -54,7 +54,7 @@ namespace Projekt_ASP.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
 
-                ModelState.AddModelError("", "Nieprawidłowa próba zalogowania");
+                ModelState.AddModelError("", "Nieprawidłowa próba rejestrowania.");
             }
             return View(register);
         }
@@ -88,7 +88,7 @@ namespace Projekt_ASP.Controllers
                     }
                 }
             }
-            ModelState.AddModelError("", "Nieprawidłowa nazwa użytkownika lub hasło");
+            ModelState.AddModelError("", "Nieprawidłowa dane logowania.");
 
             return View(login);
         }

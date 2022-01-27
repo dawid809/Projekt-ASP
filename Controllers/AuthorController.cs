@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projekt_ASP.Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class AuthorController : Controller
     {
         private readonly ICRUDAuthorRepository repository;

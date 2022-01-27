@@ -29,14 +29,9 @@ namespace Projekt_ASP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration["Data:BookShop:IdentityConnectionString"]));
-            services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-            services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
-            services.AddTransient<ICRUDAuthorRepository, CRUDAuthorRepository>();
-            services.AddTransient<ICRUDCategoryRepository, CRUDCategoryRepository>();
+            services.AddControllersWithViews();
+            //session
+            services.AddSession();
             //Api
             services.AddSingleton<BasicAuthorizationFilter>();
             services.AddMvc()
@@ -44,7 +39,14 @@ namespace Projekt_ASP
                 .AddJsonOptions(o => o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)
                 .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.AddControllersWithViews();
-            services.AddSession();
+
+            //Database
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration["Data:BookShop:IdentityConnectionString"]));
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             //Authorization
             services.AddAuthorization(options =>
             {
@@ -52,6 +54,11 @@ namespace Projekt_ASP
                 options.AddPolicy("SellerAccess", policy => policy.RequireRole(Roles.Manager.ToString()));
                 options.AddPolicy("UsersAccess", policy => policy.RequireRole(Roles.User.ToString()));
             });
+
+            //Models
+            services.AddTransient<ICRUDBookRepository, CRUDBookRepository>();
+            services.AddTransient<ICRUDAuthorRepository, CRUDAuthorRepository>();
+            services.AddTransient<ICRUDCategoryRepository, CRUDCategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

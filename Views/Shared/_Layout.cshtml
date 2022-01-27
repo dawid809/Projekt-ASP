@@ -21,7 +21,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="BookList">Book List</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="Index">Book List</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Author" asp-action="Index">Author List</a>
@@ -40,7 +40,7 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <div class="dropdown" id="dropdown-menu">
+                            <li class="dropdown" id="dropdown-menu">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @User.Identity.Name
                                 </button>
@@ -49,8 +49,7 @@
                                     <a class="dropdown-item btn">Ustawienia</a>
                                     <a class="dropdown-item btn" asp-controller="Account" asp-action="Logout">Wyloguj</a>
                                 </div>
-                            </div>
-
+                            </li>
                         }
                         else
                         {

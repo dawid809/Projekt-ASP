@@ -10,8 +10,9 @@ namespace Projekt_ASP.Models
     {
         Book Find(int id);
         Book Delete(int id);
-        Book Add(AddBook book);
+        Book Add(Book book);
         Book Update(Book book);
+        //Book BookExists(int id);
 
         IList<Book> FindAll();
     }
@@ -25,15 +26,9 @@ namespace Projekt_ASP.Models
             _context = context;
         }
 
-        public Book Add(AddBook book)
+        public Book Add(Book book)
         {
-            var cat = _context.Categories.FirstOrDefault(x => x.CategoryId == book.CategoryId);
-            var aut = _context.Authors.FirstOrDefault(x => x.FirstName == book.FirstName && x.Lastname == book.LastName);
-            if (aut == null)
-            {
-                aut = _context.Authors.Add(new Author { FirstName = book.FirstName, Lastname = book.LastName }).Entity;
-            }
-            var entity = _context.Books.Add(new Book { Author = aut, Category = cat, Name = book.Name, PageCount = book.PageCount, ReleaseDate = book.ReleaseDate }).Entity;
+            var entity = _context.Books.Add(book).Entity;
             _context.SaveChanges();
             return entity;
         }

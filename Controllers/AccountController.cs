@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -20,14 +21,12 @@ namespace Projekt_ASP.Controllers
             _signInManager = signInManager;
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(Register register)
         {
@@ -60,7 +59,6 @@ namespace Projekt_ASP.Controllers
         }
 
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
@@ -70,7 +68,6 @@ namespace Projekt_ASP.Controllers
             });
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login login)
@@ -97,6 +94,11 @@ namespace Projekt_ASP.Controllers
         {
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

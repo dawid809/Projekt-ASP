@@ -68,8 +68,8 @@ namespace Projekt_ASP.Controllers
                 new { id = book.BookId }, book);
         }
 
-        [BasicAuthentication]
         [HttpPut("{id}")]
+        [BasicAuthentication]
         public IActionResult Put(int id, [FromBody] Book book)
         {
             if (id != book.BookId) return BadRequest();

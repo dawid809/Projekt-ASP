@@ -30,11 +30,13 @@ namespace Projekt_ASP.Models
         [DisplayName("Data wydania")]
         public short ReleaseDate { get; set; }
 
-        [Required]
         public Author Author { get; set; }
 
-        [Required]
+        public int AuthorId { get; set; }
+
         public Category Category { get; set; }
+
+        public int CategoryId { get; set; }
 
         public static void ModelCreate(ModelBuilder modelBuilder)
         {

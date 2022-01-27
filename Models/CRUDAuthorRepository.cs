@@ -10,7 +10,7 @@ namespace Projekt_ASP.Models
         Author Find(int id);
         Author Delete(int id);
         Author Add(Author author);
-        Author Update(Author author);
+        Author Update(int id, Author author);
 
         IList<Author> FindAll();
     }
@@ -43,9 +43,14 @@ namespace Projekt_ASP.Models
             return _context.Authors.FirstOrDefault(x => x.AuthorId == id);
         }
 
-        public Author Update(Author author)
+        public Author Update(int id, Author author)
         {
-            var entity = _context.Authors.Update(author).Entity;
+            var entity = _context.Authors.Find(id);
+            if (entity != null)
+            {
+                entity.FirstName = author.FirstName;
+                entity.Lastname = author.Lastname;
+            }
             _context.SaveChanges();
             return entity;
         }

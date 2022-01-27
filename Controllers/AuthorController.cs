@@ -30,7 +30,7 @@ namespace Projekt_ASP.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new Author());
         }
 
         [HttpPost]
@@ -39,7 +39,7 @@ namespace Projekt_ASP.Controllers
             if (ModelState.IsValid)
             {
                 repository.Add(author);
-                return View("Index", repository.FindAll());
+                return RedirectToAction("Index");
             }
             else
             {
@@ -49,18 +49,18 @@ namespace Projekt_ASP.Controllers
 
         public IActionResult Edit(int id)
         {
-
-            return View(model: repository.Find(id));
+            var author = repository.Find(id);
+            return View(author);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Author editAuthor)
+        public IActionResult Edit(int id, Author editAuthor)
         {
             if (ModelState.IsValid)
             {
-                repository.Update(editAuthor);
-                return View("Index", repository.FindAll());
+                repository.Update(id, editAuthor);
+                return RedirectToAction("Index");
             }
             else
             {

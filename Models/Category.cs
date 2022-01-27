@@ -19,9 +19,7 @@ namespace Projekt_ASP.Models
 
         [DisplayName("Kategoria książki")]
         [Required(ErrorMessage = "Podaj kategorie książki!")]
-        [EnumDataType(typeof(BookCategories))]
-        [NotMapped]
-        public BookCategories? BookCategory { get; set; }
+        public string BookCategory { get; set; }
 
         public ICollection<Book> Books { get; set; }
 
@@ -30,21 +28,6 @@ namespace Projekt_ASP.Models
             modelBuilder.Entity<Category>()
                 .HasMany(b => b.Books)
                 .WithOne(c => c.Category);
-        }
-
-        [Column("BookCategory")]
-        public string BookCategoryString
-        {
-            get { return BookCategory.ToString(); }
-            private set { BookCategory = value.ParseEnum<BookCategories>(); }
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public static T ParseEnum<T>(this string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
         }
     }
 }

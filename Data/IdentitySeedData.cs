@@ -119,13 +119,17 @@ namespace Projekt_ASP.Models
                 return;
             }
 
-            var length = Enum.GetNames(typeof(BookCategories)).Length;
-            var categories = new Category[length];
-
-            for (int i = 1; i <= length; i++)
-            {
-                categories[i - 1] = new Category { BookCategory = (BookCategories)i };
-            }
+            var categories = new Category[]
+           {
+                new Category {BookCategory = "Literatura dziecięca"},
+                new Category {BookCategory = "Fikcja"},
+                new Category {BookCategory = "Powieść historyczna"},
+                new Category {BookCategory = "Biografia"},
+                new Category {BookCategory = "Fantasy"},
+                new Category {BookCategory = "Przygodowe"},
+                new Category {BookCategory = "Akcja"},
+                new Category {BookCategory = "Horror"}
+           };
 
             foreach (Category c in categories)
             {
@@ -143,47 +147,47 @@ namespace Projekt_ASP.Models
             {
                 new Book { Name = "Akademia pana Kleksa",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 1),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 14),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 1),
                            PageCount = 136, ReleaseDate = 2013 },
                 new Book { Name = "Lalka",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 2),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 7),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 2),
                            PageCount = 678, ReleaseDate = 2017 },
                 new Book { Name = "Faraon",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 2),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 15),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
                            PageCount = 400 , ReleaseDate = 2015 },
                 new Book { Name = "Kamienie na szaniec",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 3),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 16),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 4),
                            PageCount = 256, ReleaseDate = 2013 },
                 new Book { Name = "Jądro ciemności",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 4),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 2),
                            PageCount = 96, ReleaseDate = 2018 },
                 new Book { Name = "Harry Potter i Kamień Filozoficzny",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 17),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 323, ReleaseDate = 2016 },
                 new Book { Name = "Harry Potter i Komnata Tajemnic",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 6),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 358, ReleaseDate = 2016 },
                 new Book { Name = "Harry Potter i więzień Azkabanu",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 448, ReleaseDate = 2016 },
                 new Book { Name = "Harry Potter i Czara Ognia",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 768, ReleaseDate = 2016 },
                 new Book { Name = "Harry Potter i Zakon Feniksa",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 960, ReleaseDate = 2016 },
                 new Book { Name = "Harry Potter i Książę Półkrwi",
                            Author = authors.FirstOrDefault(a => a.AuthorId == 5),
-                           Category = categories.FirstOrDefault(c => c.CategoryId == 3),
+                           Category = categories.FirstOrDefault(c => c.CategoryId == 5),
                            PageCount = 704, ReleaseDate = 2016 }
             };
 

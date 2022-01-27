@@ -280,9 +280,9 @@ namespace Projekt_ASP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BookCategoryString")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("BookCategory");
+                    b.Property<string>("BookCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId");
 

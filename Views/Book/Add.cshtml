@@ -33,7 +33,7 @@
                         <option value="">-- Nieokreślona --</option>
                         @{ foreach (var item in category)
                             {
-                                <option value="@item.CategoryId">@item.BookCategoryString</option>
+                                <option value="@item.CategoryId">@item.BookCategory</option>
                             }}
                     </select>
                     <span asp-validation-for="CategoryId" class="text-danger"></span>

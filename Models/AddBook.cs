@@ -30,8 +30,8 @@ namespace Projekt_ASP.Models
         [DisplayName("Nazwisko autora")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Wybierz kategorie książki!")]
-        [DisplayName("Kategoria książki")]
+        //[Required(ErrorMessage = "Wybierz kategorie książki!")]
+        //[DisplayName("Kategoria książki")]
         public int CategoryId { get; set; }
     }
 }

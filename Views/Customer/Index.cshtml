@@ -23,11 +23,19 @@
                 <td>@product.PageCount</td>
                 <td>@product.ReleaseDate</td>
                 <td>@product.Price</td>
-                <td>
-                    <a asp-controller="Cart" asp-action="Buy" asp-route-id="@product.BookId">
-                        <span class="btn btn-outline-success">Add</span>
-                    </a>
-                </td>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-controller="Cart" asp-action="Buy" asp-route-id="@product.BookId">
+                            <span class="btn btn-outline-success">Add</span>
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    <td>Brak</td>
+                }
             </tr>
         }
     </table>

@@ -1,32 +1,36 @@
 ﻿
 <h1>Lista książek</h1>
 <br />
-<table cellpadding="2" cellspacing="2" border="1">
-    <tr>
-        <th>Id Książki</th>
-        <th>Nazwa</th>
-        <th>Autor</th>
-        <th>Kategoria</th>
-        <th>Liczba stron</th>
-        <th>Data wydania</th>
-        <th>Cena</th>
-        <th>Akcja</th>
-    </tr>
-    @foreach (var product in ViewBag.books)
-    {
+<div class="d-flex">
+    <table cellpadding="5" cellspacing="5" border="1">
         <tr>
-            <td>@product.BookId</td>
-            <td>@product.Name</td>
-            <td>@product.Author.FullName</td>
-            <td>@product.Category.BookCategory</td>
-            <td>@product.PageCount</td>
-            <td>@product.ReleaseDate</td>
-            <td>@product.Price</td>
-            <td>
-                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@product.BookId">Kup teraz</a>
-            </td>
+            <th>Id Książki</th>
+            <th>Nazwa</th>
+            <th>Autor</th>
+            <th>Kategoria</th>
+            <th>Liczba stron</th>
+            <th>Data wydania</th>
+            <th>Cena</th>
+            <th>Akcja</th>
         </tr>
-    }
-</table>
+        @foreach (var product in ViewBag.books)
+        {
+            <tr>
+                <td>@product.BookId</td>
+                <td>@product.Name</td>
+                <td>@product.Author.FullName</td>
+                <td>@product.Category.BookCategory</td>
+                <td>@product.PageCount</td>
+                <td>@product.ReleaseDate</td>
+                <td>@product.Price</td>
+                <td>
+                    <a asp-controller="Cart" asp-action="Buy" asp-route-id="@product.BookId">
+                        <span class="btn btn-outline-success">Kup teraz</span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
 

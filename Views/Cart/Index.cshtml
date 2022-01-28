@@ -30,7 +30,7 @@
             </tr>
         }
         <tr>
-            <td colspan="5" align="right">Total</td>
+            <td colspan="5" align="right" class="pr-3"><h5>Koszt</h5></td>
             <td>@ViewBag.total</td>
         </tr>
     </table>
@@ -39,7 +39,7 @@
         <a asp-controller="Customer">
             <span class="btn btn-outline-primary"> Kontynuuj zakupy</span>
         </a>
-        <a>
+        <a asp-controller="Cart" asp-action="Pay">
             <span class="btn btn-success">Przejdź do płatności</span>
         </a>
     </div>

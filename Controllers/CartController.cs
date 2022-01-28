@@ -66,6 +66,11 @@ namespace Projekt_ASP.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Pay()
+        {
+            return View("Pay");
+        }
+
         private int Exists(List<Item> cart, int id)
         {
             for (int i = 0; i < cart.Count; i++)

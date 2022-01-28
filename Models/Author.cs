@@ -12,6 +12,7 @@ namespace Projekt_ASP.Models
     {
         [Key]
         [HiddenInput]
+        [Display(Name = "Id autora")]
         public int AuthorId { get; set; }
 
         [Display(Name = "Imie autora")]

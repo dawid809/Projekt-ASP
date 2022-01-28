@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Projekt_ASP.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,17 +7,6 @@ using System.Threading.Tasks;
 
 namespace Projekt_ASP.Models
 {
-    public interface ICRUDBookRepository
-    {
-        Book Find(int id);
-        Book Delete(int id);
-        Book Add(Book book);
-        Book Update(Book book);
-        //Book BookExists(int id);
-
-        IList<Book> FindAll();
-    }
-
     public class CRUDBookRepository : ICRUDBookRepository
     {
         private readonly AppDbContext _context;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Projekt_ASP.Interfaces;
 using Projekt_ASP.Models;
 
 namespace Projekt_ASP.Controllers
@@ -52,7 +53,7 @@ namespace Projekt_ASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository)
+        public IActionResult Create([Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price, Quantity")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +79,7 @@ namespace Projekt_ASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository, [FromServices] AppDbContext appDb)
+        public IActionResult Edit(int id, [Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price, Quantity")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository, [FromServices] AppDbContext appDb)
         {
             if (id != book.BookId)
             {

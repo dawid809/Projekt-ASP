@@ -31,12 +31,16 @@ namespace Projekt_ASP.Models
         [DisplayName("Data wydania")]
         public short ReleaseDate { get; set; }
 
+        [DisplayName("Autor")]
         public Author Author { get; set; }
 
+        [DisplayName("Id Autora")]
         public int AuthorId { get; set; }
 
+        [DisplayName("Kategoria")]
         public Category Category { get; set; }
 
+        [DisplayName("Id kategorii")]
         public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Podaj cenę książki!")]
@@ -44,6 +48,8 @@ namespace Projekt_ASP.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
+        [Required(ErrorMessage = "Podaj ilość książek!")]
+        [DisplayName("Ilość")]
         public int Quantity { get; set; }
 
         public static void ModelCreate(ModelBuilder modelBuilder)

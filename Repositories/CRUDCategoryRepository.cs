@@ -1,20 +1,11 @@
-﻿using System;
+﻿using Projekt_ASP.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Projekt_ASP.Models
 {
-    public interface ICRUDCategoryRepository
-    {
-        Category Find(int id);
-        Category Delete(int id);
-        Category Add(Category category);
-        Category Update(Category category);
-
-        IList<Category> FindAll();
-    }
-
     public class CRUDCategoryRepository : ICRUDCategoryRepository
     {
         private readonly AppDbContext _context;

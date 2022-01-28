@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Projekt_ASP.Enums;
 using Projekt_ASP.Data;
 using System.Text.Json.Serialization;
+using Projekt_ASP.Interfaces;
 
 namespace Projekt_ASP
 {

@@ -15,6 +15,7 @@ namespace Projekt_ASP.Models
     {
         [Key]
         [HiddenInput]
+        [DisplayName("Id kategorii")]
         public int CategoryId { get; set; }
 
         [DisplayName("Kategoria książki")]

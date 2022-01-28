@@ -22,8 +22,8 @@ namespace Projekt_ASP.Controllers
 
         public IActionResult Index()
         {
-            var appDbContext = repository.FindAll();
-            return View(appDbContext);
+            var books = repository.FindAll();
+            return View(books);
         }
 
         public IActionResult Details(int? id)
@@ -52,7 +52,7 @@ namespace Projekt_ASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository)
+        public IActionResult Create([Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Projekt_ASP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository, [FromServices] AppDbContext appDb)
+        public IActionResult Edit(int id, [Bind("BookId,Name,PageCount,ReleaseDate,AuthorId,CategoryId,Price")] Book book, [FromServices] ICRUDAuthorRepository authorRepository, [FromServices] ICRUDCategoryRepository categoryRepository, [FromServices] AppDbContext appDb)
         {
             if (id != book.BookId)
             {

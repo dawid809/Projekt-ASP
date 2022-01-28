@@ -1,0 +1,23 @@
+﻿
+<h3>Products List</h3>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th>Id Książki</th>
+        <th>Nazwa</th>
+        <th>Cena</th>
+        <th>Akcja</th>
+    </tr>
+    @foreach (var product in ViewBag.books)
+    {
+        <tr>
+            <td>@product.BookId</td>
+            <td>@product.Name</td>
+            <td>@product.Price</td>
+            <td>
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@product.BookId">Kup teraz</a>
+            </td>
+        </tr>
+    }
+</table>
+
+

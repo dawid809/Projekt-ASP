@@ -75,10 +75,11 @@ namespace Projekt_ASP
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseSession();
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -87,7 +88,7 @@ namespace Projekt_ASP
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Customer}/{action=Index}/{id?}");
             });
             IdentitySeedData.CreateUserRolesAndAssign(app);
             IdentitySeedData.SeedAllData(app);

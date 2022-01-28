@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,6 +38,13 @@ namespace Projekt_ASP.Models
         public Category Category { get; set; }
 
         public int CategoryId { get; set; }
+
+        [Required(ErrorMessage = "Podaj cenę książki!")]
+        [DisplayName("Cena")]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        public int Quantity { get; set; }
 
         public static void ModelCreate(ModelBuilder modelBuilder)
         {
